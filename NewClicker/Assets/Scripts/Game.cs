@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using System; /////////////////////////////////////////////////////////////////////////////////////////////////
+using System; /////////////////////////////////////////////////////////////////////////////////////////////////
 
 public class Game : MonoBehaviour
 {
@@ -22,7 +22,7 @@ public class Game : MonoBehaviour
     public byte i;
     public byte k;
     public int m = 255;
-    public int level = 60;
+    public int level;
     private bool checkBon = true;
     private bool checkAut = true;
     private bool checkSav = true;
@@ -48,27 +48,32 @@ public class Game : MonoBehaviour
     public GameObject Short;
     public GameObject Prefix;
     public GameObject BntClick;
+    public GameObject[] BonusButton = new GameObject[20];
+    public GameObject[] AutoButton = new GameObject[30];
+    public GameObject[] SaveButton = new GameObject[10];
     public Sprite QuanSt = Resources.Load<Sprite>("QuanStr");
     public Sprite Quark = Resources.Load<Sprite>("Quark");
     public Sprite Proton = Resources.Load<Sprite>("Proton");
     public Sprite Nucleus = Resources.Load<Sprite>("Nucleus");
     public Sprite Atom = Resources.Load<Sprite>("Atom");
-    public ulong[] clickCost = { 50, 300, 1000, 6000, 15000 };
+    public ulong[] clickCost = { 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000 };
     public ulong[] autoCost = { 100, 950, 3000, 18000, 55000 };
     public ulong[] saveCost = { 500, 2500, 13000, 28000, 93000 };
-    public ulong[] clickCostStart = { 50, 300, 1000, 6000, 15000 };
+    public ulong[] clickCostStart = { 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000 };
     public ulong[] autoCostStart = { 100, 950, 3000, 18000, 55000 };
     public ulong[] saveCostStart = { 500, 2500, 13000, 28000, 93000 };
-    public ulong[] clickBonus = { 1, 5, 12, 48, 123 };
+    public ulong[] clickBonus = { 1, 5, 12, 48, 123, 1, 5, 12, 48, 123, 1, 5, 12, 48, 123, 1, 5, 12, 48, 123 };
     public ulong[] autoBonus = { 1, 3, 11, 47, 116 };
     public ulong[] saveBonus = { 1, 2, 8, 32, 88 };
-    public string[] clickCostStr = new string[5];
+    public string[] clickCostStr = new string[20];
     public string[] autoCostStr = new string[5];
     public string[] saveCostStr = new string[5];
-    public int[] clickNum = { 0, 0, 0, 0, 0 };
+    public int[] clickNum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     public int[] autoNum = { 0, 0, 0, 0, 0 };
     public int[] saveNum = { 0, 0, 0, 0, 0 };
-    //public int[] Date = new int[6]; /////////////////////////////////////////////////////////////////////////////////////////////
+    public DateTime DateStart; /////////////////////////////////////////////////////////////////////////////////////////////
+    public ulong SecondCount;
+    public int Second;
 
     void Start()
     {
@@ -89,18 +94,40 @@ public class Game : MonoBehaviour
 
         LevelText.text = level.ToString();
 
-        if(level == 1)
+        if (level == 0)
+            BntClick.SetActive(false);
+        else if(level == 1)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = QuanSt;
+        }
         else if(level == 2)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Quark;
+        }
         else if(level == 3)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Proton;
+        }
         else if(level == 4)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Nucleus;
+        }
         else if(level == 5)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Atom;
+        }
+        else
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Atom;
+        }
 
-        for(int i = 0; i < 5; i++) // восстановление покупок
+        for(int i = 0; i < 20; i++) // восстановление покупок
         {
             clickNum[i] = PlayerPrefs.GetInt($"clickNum{i}", clickNum[i]);
             clickCostStr[i] = PlayerPrefs.GetString($"clickCostStr{i}", clickCostStr[i]);
@@ -160,25 +187,55 @@ public class Game : MonoBehaviour
         TimeSpan ts = DateTime.Now - dt;
         score += (ulong)ts.TotalSeconds * auto; */ //////////////////////////////////////////////////////////////////////////////
 
+        Second = (DateTime.Now - DateStart).Seconds;
+        SecondCount = (ulong)Second;
+        if((SecondCount * auto)/10 > save)
+        {
+            score += save;
+            AllEnergy += save;
+        }
+        else
+        {
+            score += (SecondCount * auto)/10;
+            AllEnergy += (SecondCount * auto)/10;
+        }
+
         StartCoroutine(BonusPerSec()); // запуск корутины
     }
 
     void Update()
     {
+        DateStart = DateTime.Now;
+
         scoreStr = score.ToString(); // синхронизация значений
-        //clickStr = click.ToString();
-        //autoStr = auto.ToString();
-        //saveStr = save.ToString();
         AllEnergyStr = AllEnergy.ToString();
 
         PlayerPrefs.SetString("scoreStr", scoreStr); // сохранение счёта
-        //PlayerPrefs.SetString("clickStr", clickStr);
-        //PlayerPrefs.SetString("autoStr", autoStr);
-        //PlayerPrefs.SetString("saveStr", saveStr);
-        //PlayerPrefs.SetString("AllEnergyStr", AllEnergyStr);
-        //PlayerPrefs.SetInt("KolvoClick", KolvoClick);
+        PlayerPrefs.SetString("AllEnergyStr", AllEnergyStr);
 
-        
+        for(int i = 0; i < 20; i++)
+        {
+            if (score < clickCost[i])
+                BonusButton[i].GetComponent<Image>().color = new Color(255,0,0);
+            else
+                BonusButton[i].GetComponent<Image>().color = new Color(0,255,0);
+        }
+
+        for(int i = 0; i < 5; i++)
+        {
+            if (score < autoCost[i])
+                AutoButton[i].GetComponent<Image>().color = new Color(255,0,0);
+            else
+                AutoButton[i].GetComponent<Image>().color = new Color(0,255,0);
+        }
+
+        for(int i = 0; i < 5; i++)
+        {
+            if (score < saveCost[i])
+                SaveButton[i].GetComponent<Image>().color = new Color(255,0,0);
+            else
+                SaveButton[i].GetComponent<Image>().color = new Color(0,255,0);
+        }
 
         /*Date[0] = DateTime.Now.Year; /////////////////////////////////////////////////////////////////////////////////////////////////
         Date[1] = DateTime.Now.Month;
@@ -385,37 +442,37 @@ public class Game : MonoBehaviour
 
         InfoText.text = "";
 
-        InfoText.text += $"\n Уровень:\n {level}\n\n";
+        InfoText.text += $"\n   Уровень:\n   {level}\n\n";
 
         if (score == 0)
-            InfoText.text += $" Имеющаяся энергия:\n {score} Дж\n\n";
+            InfoText.text += $"   Имеющаяся энергия:\n   {score} Дж\n\n";
         else
-            InfoText.text += $" Имеющаяся энергия:\n {score.ToString("#,#")} Дж\n\n";
+            InfoText.text += $"   Имеющаяся энергия:\n   {score.ToString("#,#")} Дж\n\n";
 
         if (click == 0)
-            InfoText.text += $" Добыча энергии:\n {click} Дж/клик\n\n";
+            InfoText.text += $"   Получение энергии:\n   {click} Дж/клик\n\n";
         else
-            InfoText.text += $" Добыча энергии:\n {click.ToString("#,#")} Дж/клик\n\n";
+            InfoText.text += $"   Получение энергии:\n   {click.ToString("#,#")} Дж/клик\n\n";
 
         if (auto == 0)
-            InfoText.text += $" Автодобыча энергии:\n {auto} Дж/сек\n\n";
+            InfoText.text += $"   Автодобыча энергии:\n   {auto} Дж/сек\n\n";
         else
-            InfoText.text += $" Автодобыча энергии:\n {auto.ToString("#,#")} Дж/сек\n\n";
+            InfoText.text += $"   Автодобыча энергии:\n   {auto.ToString("#,#")} Дж/сек\n\n";
 
         if (save == 0)
-            InfoText.text += $" Накопление энергии:\n до {save} Дж\n\n";
+            InfoText.text += $"   Накопление энергии:\n   до {save} Дж\n\n";
         else
-            InfoText.text += $" Накопление энергии:\n до {save.ToString("#,#")} Дж\n\n";
+            InfoText.text += $"   Накопление энергии:\n   до {save.ToString("#,#")} Дж\n\n";
 
         if (AllEnergy == 0)
-            InfoText.text += $" Всего энергии получено:\n {AllEnergy} Дж\n\n";
+            InfoText.text += $"   Всего энергии получено:\n   {AllEnergy} Дж\n\n";
         else
-            InfoText.text += $" Всего энергии получено:\n {AllEnergy.ToString("#,#")} Дж\n\n";
+            InfoText.text += $"   Всего энергии получено:\n   {AllEnergy.ToString("#,#")} Дж\n\n";
 
         if (KolvoClick == 0)
-            InfoText.text += $" Всего кликов:\n {KolvoClick}";
+            InfoText.text += $"   Всего кликов:\n   {KolvoClick}";
         else
-            InfoText.text += $" Всего кликов:\n {KolvoClick.ToString("#,#")}";         
+            InfoText.text += $"   Всего кликов:\n   {KolvoClick.ToString("#,#")}";         
     }
 
     public void OnClickBtn()
@@ -451,14 +508,12 @@ public class Game : MonoBehaviour
         PlayerPrefs.SetInt("level", level);
         LevelText.text = level.ToString();
 
-        clickCost[0] = 50;    clickNum[0] = 0;    autoCost[0] = 100;    autoNum[0] = 0;    saveCost[0] = 500;    saveNum[0] = 0;
-        clickCost[1] = 300;    clickNum[1] = 0;    autoCost[1] = 950;    autoNum[1] = 0;    saveCost[1] = 2500;    saveNum[1] = 0;
-        clickCost[2] = 1000;    clickNum[2] = 0;    autoCost[2] = 3000;    autoNum[2] = 0;    saveCost[2] = 13000;    saveNum[2] = 0;
-        clickCost[3] = 6000;    clickNum[3] = 0;    autoCost[3] = 18000;    autoNum[3] = 0;    saveCost[3] = 28000;    saveNum[3] = 0;
-        clickCost[4] = 15000;    clickNum[4] = 0;    autoCost[4] = 55000;    autoNum[4] = 0;    saveCost[4] = 93000;    saveNum[4] = 0;
+        BntClick.SetActive(false);
 
-        for(int i = 0; i < 5; i++) // сохранение покупок
+        for(int i = 0; i < 20; i++) // сброс магазина
         {
+            clickCost[i] = clickCostStart[i];
+            clickNum[i] = 0;
             clickCostStr[i] = clickCost[i].ToString();
             PlayerPrefs.SetString($"clickCostStr{i}", clickCostStr[i]);
             PlayerPrefs.SetInt($"clickNum{i}", clickNum[i]);
@@ -468,6 +523,8 @@ public class Game : MonoBehaviour
 
         for(int i = 0; i < 5; i++)
         {
+            autoCost[i] = autoCostStart[i];
+            autoNum[i] = 0;
             autoCostStr[i] = autoCost[i].ToString();
             PlayerPrefs.SetString($"autoCostStr{i}", autoCostStr[i]);
             PlayerPrefs.SetInt($"autoNum{i}", autoNum[i]);
@@ -477,6 +534,8 @@ public class Game : MonoBehaviour
 
         for(int i = 0; i < 5; i++)
         {
+            saveCost[i] = saveCostStart[i];
+            saveNum[i] = 0;
             saveCostStr[i] = saveCost[i].ToString();
             PlayerPrefs.SetString($"saveCostStr{i}", saveCostStr[i]);
             PlayerPrefs.SetInt($"saveNum{i}", saveNum[i]);
@@ -547,16 +606,39 @@ public class Game : MonoBehaviour
                 level += index + 1 - level;
                 PlayerPrefs.SetInt("level", level);
                 LevelText.text = level.ToString();
-                if(level == 1)
+                
+                if (level == 0)
+                    BntClick.SetActive(false);
+                else if(level == 1)
+                {
+                    BntClick.SetActive(true);
                     BntClick.GetComponent<Image>().sprite = QuanSt;
+                }
                 else if(level == 2)
+                {
+                    BntClick.SetActive(true);
                     BntClick.GetComponent<Image>().sprite = Quark;
+                }
                 else if(level == 3)
+                {
+                    BntClick.SetActive(true);
                     BntClick.GetComponent<Image>().sprite = Proton;
+                }
                 else if(level == 4)
+                {
+                    BntClick.SetActive(true);
                     BntClick.GetComponent<Image>().sprite = Nucleus;
+                }
                 else if(level == 5)
+                {
+                    BntClick.SetActive(true);
                     BntClick.GetComponent<Image>().sprite = Atom;
+                }
+                else
+                {
+                    BntClick.SetActive(true);
+                    BntClick.GetComponent<Image>().sprite = Atom;
+                }
             }
         }
     }
