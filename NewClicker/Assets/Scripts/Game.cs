@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System; /////////////////////////////////////////////////////////////////////////////////////////////////
+using System;
 
 public class Game : MonoBehaviour
 {
@@ -14,12 +14,6 @@ public class Game : MonoBehaviour
     public ulong SokrSc; // сокр счёт
     public ulong SokrAu; // сокр счёт
     public int KolvoClick; // количесво нажатий
-    public string scoreStr;
-    public string clickStr;
-    public string autoStr;
-    public string saveStr;
-    public string AllEnergyStr;
-    public byte i;
     public byte k;
     public int m = 255;
     public int level;
@@ -32,6 +26,7 @@ public class Game : MonoBehaviour
     public Text AutoText; // вывод auto на экран
     public Text InfoText; // вывод на экран информации
     public Text LevelText;
+    public Text SaveBonusText;
     public Text[] CostClickTxt;
     public Text[] CostAutoTxt;
     public Text[] CostSaveTxt; 
@@ -43,6 +38,7 @@ public class Game : MonoBehaviour
     public GameObject SavePan;
     public GameObject InfoPan;
     public GameObject SettingsPan;
+    public GameObject SaveBonusPan;
     public GameObject Normal;
     public GameObject Numbers;
     public GameObject Short;
@@ -57,40 +53,38 @@ public class Game : MonoBehaviour
     public Sprite Nucleus = Resources.Load<Sprite>("Nucleus");
     public Sprite Atom = Resources.Load<Sprite>("Atom");
     public ulong[] clickCost = { 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000 };
-    public ulong[] autoCost = { 100, 950, 3000, 18000, 55000 };
-    public ulong[] saveCost = { 500, 2500, 13000, 28000, 93000 };
+    public ulong[] autoCost = { 100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000,
+                                100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000, 55000,  100, 950, 3000, 18000 };
+    public ulong[] saveCost = { 500, 2500, 13000, 28000, 93000, 500, 2500, 13000, 28000, 93000 };
     public ulong[] clickCostStart = { 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000 };
-    public ulong[] autoCostStart = { 100, 950, 3000, 18000, 55000 };
-    public ulong[] saveCostStart = { 500, 2500, 13000, 28000, 93000 };
+    public ulong[] autoCostStart = { 100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000,
+                                     100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000, 55000,  100, 950, 3000, 18000 };
+    public ulong[] saveCostStart = { 500, 2500, 13000, 28000, 93000, 500, 2500, 13000, 28000, 93000 };
     public ulong[] clickBonus = { 1, 5, 12, 48, 123, 1, 5, 12, 48, 123, 1, 5, 12, 48, 123, 1, 5, 12, 48, 123 };
-    public ulong[] autoBonus = { 1, 3, 11, 47, 116 };
-    public ulong[] saveBonus = { 1, 2, 8, 32, 88 };
-    public string[] clickCostStr = new string[20];
-    public string[] autoCostStr = new string[5];
-    public string[] saveCostStr = new string[5];
+    public ulong[] autoBonus = { 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, };
+    public ulong[] saveBonus = { 100, 200, 800, 3200, 8800, 100, 200, 800, 3200, 8800 };
     public int[] clickNum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    public int[] autoNum = { 0, 0, 0, 0, 0 };
-    public int[] saveNum = { 0, 0, 0, 0, 0 };
-    public DateTime DateStart; /////////////////////////////////////////////////////////////////////////////////////////////
+    public int[] autoNum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
+    public int[] saveNum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    public DateTime DateStart; 
     public ulong SecondCount;
     public int Second;
 
     void Start()
     {
-        scoreStr = PlayerPrefs.GetString("scoreStr", scoreStr); // восстановление счёта
-        clickStr = PlayerPrefs.GetString("clickStr", clickStr);
-        autoStr = PlayerPrefs.GetString("autoStr", autoStr);
-        saveStr = PlayerPrefs.GetString("saveStr", saveStr);
-        AllEnergyStr = PlayerPrefs.GetString("AllEnergyStr", AllEnergyStr);
+        // восстановление счёта
+
         KolvoClick = PlayerPrefs.GetInt("KolvoClick", KolvoClick);
         m = PlayerPrefs.GetInt("m", m);
         level = PlayerPrefs.GetInt("level", level);
 
-        score = ulong.Parse(scoreStr); // синхронизация значений 
-        click = ulong.Parse(clickStr);
-        auto = ulong.Parse(autoStr);
-        save = ulong.Parse(saveStr);
-        AllEnergy = ulong.Parse(AllEnergyStr);
+        DateStart = DateTime.Parse(PlayerPrefs.GetString("DateStart"));
+
+        score = ulong.Parse(PlayerPrefs.GetString("score"));
+        click = ulong.Parse(PlayerPrefs.GetString("click"));
+        auto = ulong.Parse(PlayerPrefs.GetString("auto"));
+        save = ulong.Parse(PlayerPrefs.GetString("save"));
+        AllEnergy = ulong.Parse(PlayerPrefs.GetString("AllEnergy"));
 
         LevelText.text = level.ToString();
 
@@ -130,26 +124,23 @@ public class Game : MonoBehaviour
         for(int i = 0; i < 20; i++) // восстановление покупок
         {
             clickNum[i] = PlayerPrefs.GetInt($"clickNum{i}", clickNum[i]);
-            clickCostStr[i] = PlayerPrefs.GetString($"clickCostStr{i}", clickCostStr[i]);
-            clickCost[i] = ulong.Parse(clickCostStr[i]);
+            clickCost[i] = ulong.Parse(PlayerPrefs.GetString($"clickCost{i}"));
             NumClickTxt[i].text = clickNum[i] + "";
             CostClickTxt[i].text = $"Цена: {clickCost[i]} Дж";
         }
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 30; i++)
         {
             autoNum[i] = PlayerPrefs.GetInt($"autoNum{i}", autoNum[i]);
-            autoCostStr[i] = PlayerPrefs.GetString($"autoCostStr{i}", autoCostStr[i]);
-            autoCost[i] = ulong.Parse(autoCostStr[i]);
+            autoCost[i] = ulong.Parse(PlayerPrefs.GetString($"autoCost{i}"));
             NumAutoTxt[i].text = autoNum[i] + "";
             CostAutoTxt[i].text = $"Цена: {autoCost[i]} Дж";
         }
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 10; i++)
         {
             saveNum[i] = PlayerPrefs.GetInt($"saveNum{i}", saveNum[i]);
-            saveCostStr[i] = PlayerPrefs.GetString($"saveCostStr{i}", saveCostStr[i]);
-            saveCost[i] = ulong.Parse(saveCostStr[i]);
+            saveCost[i] = ulong.Parse(PlayerPrefs.GetString($"saveCost{i}"));
             NumSaveTxt[i].text = saveNum[i] + "";
             CostSaveTxt[i].text = $"Цена: {saveCost[i]} Дж";
         }
@@ -183,23 +174,22 @@ public class Game : MonoBehaviour
             Prefix.GetComponent<Image>().color = new Color(0,255,0);
         }
 
-        /*DateTime dt = new DateTime(Date[0], Date[1], Date[2], Date[3], Date[4], Date[5]);
-        TimeSpan ts = DateTime.Now - dt;
-        score += (ulong)ts.TotalSeconds * auto; */ //////////////////////////////////////////////////////////////////////////////
+        Second = (int)(DateTime.Now - DateStart).TotalSeconds; // секунд в интервале int 
+        SecondCount = (ulong)Second; // секунд в интервале ulong 
 
-        Second = (DateTime.Now - DateStart).Seconds;
-        SecondCount = (ulong)Second;
-        if((SecondCount * auto)/10 > save)
+        if ((SecondCount * auto)/10 > 0) // накоплено более 0 Дж
         {
-            score += save;
-            AllEnergy += save;
+            SaveBonusPan.SetActive(true);
+            if((SecondCount * auto)/10 > save)
+            {
+                SaveBonusText.text = $"Вас не было\n{SecondCount} секунд \n\n Получено\n{save} Дж";
+            }
+            else
+            {
+                SaveBonusText.text = $"Вас не было\n{SecondCount} секунд \n\n Получено\n{(SecondCount * auto)/10} Дж";
+            }
         }
-        else
-        {
-            score += (SecondCount * auto)/10;
-            AllEnergy += (SecondCount * auto)/10;
-        }
-
+        
         StartCoroutine(BonusPerSec()); // запуск корутины
     }
 
@@ -207,11 +197,9 @@ public class Game : MonoBehaviour
     {
         DateStart = DateTime.Now;
 
-        scoreStr = score.ToString(); // синхронизация значений
-        AllEnergyStr = AllEnergy.ToString();
-
-        PlayerPrefs.SetString("scoreStr", scoreStr); // сохранение счёта
-        PlayerPrefs.SetString("AllEnergyStr", AllEnergyStr);
+        PlayerPrefs.SetString("DateStart", DateStart.ToString()); // сохранение счёта
+        PlayerPrefs.SetString("score", score.ToString());
+        PlayerPrefs.SetString("AllEnergy", AllEnergy.ToString());
 
         for(int i = 0; i < 20; i++)
         {
@@ -221,7 +209,7 @@ public class Game : MonoBehaviour
                 BonusButton[i].GetComponent<Image>().color = new Color(0,255,0);
         }
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 30; i++)
         {
             if (score < autoCost[i])
                 AutoButton[i].GetComponent<Image>().color = new Color(255,0,0);
@@ -229,7 +217,7 @@ public class Game : MonoBehaviour
                 AutoButton[i].GetComponent<Image>().color = new Color(0,255,0);
         }
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 10; i++)
         {
             if (score < saveCost[i])
                 SaveButton[i].GetComponent<Image>().color = new Color(255,0,0);
@@ -237,207 +225,24 @@ public class Game : MonoBehaviour
                 SaveButton[i].GetComponent<Image>().color = new Color(0,255,0);
         }
 
-        /*Date[0] = DateTime.Now.Year; /////////////////////////////////////////////////////////////////////////////////////////////////
-        Date[1] = DateTime.Now.Month;
-        Date[2] = DateTime.Now.Day;
-        Date[3] = DateTime.Now.Hour;
-        Date[4] = DateTime.Now.Minute;
-        Date[5] = DateTime.Now.Second;*/
-
         if (m == -1111111) // стандартный режим
         {
-            if (score == 0)
-                ScoreText.text = score + " Дж";
-            else
-                ScoreText.text = score.ToString("#,#") + " Дж";
-
-            if (auto == 0)
-                AutoText.text = auto + " Дж/сек";
-            else
-                AutoText.text = auto.ToString("#,#") + " Дж/сек";
+            NormalMode();
         }
 
         else if (m == 2222222) // режим степени
         {
-            if (score >= 100000000000)
-            {
-                SokrSc = score;
-
-                while (SokrSc >= 1000)
-                {
-                    SokrSc /= 10;
-                    i++;
-                }
-                
-                ScoreText.text = SokrSc + $" x 10^{i} Дж";
-
-                i = 0;
-            }
-            else
-            {
-                if (score == 0)
-                    ScoreText.text = score + " Дж";
-                else
-                    ScoreText.text = score.ToString("#,#") + " Дж";
-            }
-
-            if (auto >= 100000000000)
-            {
-                SokrAu = auto;
-
-                while (SokrAu >= 1000)
-                {
-                    SokrAu /= 10;
-                    i++;
-                }
-
-                AutoText.text = SokrAu + $" x 10^{i} Дж/сек";
-
-                i = 0;
-            }
-            else
-            {
-                if (auto == 0)
-                    AutoText.text = auto + " Дж/сек";
-                else
-                    AutoText.text = auto.ToString("#,#") + " Дж/сек";
-            }
+            StepMode();
         }
 
         else if (m == -3333333) // сокращённый режим
         {
-            if (score >= 1000)
-            {
-                SokrSc = score;
-
-                while (SokrSc >= 1000)
-                {
-                    SokrSc /= 1000;
-                    k++;
-                }
-
-                if (k == 1)
-                    ScoreText.text = SokrSc.ToString("#,#") + " тыс Дж";
-                else if (k == 2)
-                    ScoreText.text = SokrSc.ToString("#,#") + " млн Дж";
-                else if (k == 3)
-                    ScoreText.text = SokrSc.ToString("#,#") + " млр Дж";
-                else if (k == 4)
-                    ScoreText.text = SokrSc.ToString("#,#") + " трилн Дж";
-                else if (k == 5)
-                    ScoreText.text = SokrSc.ToString("#,#") + " квадрлн Дж";
-                else if (k == 6)
-                    ScoreText.text = SokrSc.ToString("#,#") + " квинтлн Дж";
-                k = 0;
-            }
-            else
-            {
-                if (score == 0)
-                    ScoreText.text = score + " Дж";
-                else
-                    ScoreText.text = score.ToString("#,#") + " Дж";
-            }
-
-            if (auto >= 1000)
-            {
-                SokrAu = auto;
-
-                while (SokrAu >= 1000)
-                {
-                    SokrAu /= 1000;
-                    k++;
-                }
-
-                if (k == 1)
-                    AutoText.text = SokrAu.ToString("#,#") + " тыс Дж/сек";
-                else if (k == 2)
-                    AutoText.text = SokrAu.ToString("#,#") + " млн Дж/сек";
-                else if (k == 3)
-                    AutoText.text = SokrAu.ToString("#,#") + " млр Дж/сек";
-                else if (k == 4)
-                    AutoText.text = SokrAu.ToString("#,#") + " трилн Дж/сек";
-                else if (k == 5)
-                    AutoText.text = SokrAu.ToString("#,#") + " квадрлн Дж/сек";
-                else if (k == 6)
-                    AutoText.text = SokrAu.ToString("#,#") + " квинтлн Дж/сек";
-                k = 0;
-            }
-            else
-            {
-                if (auto == 0)
-                    AutoText.text = auto + " Дж/сек";
-                else
-                    AutoText.text = auto.ToString("#,#") + " Дж/сек";
-            }
+            SokrMode();
         }
 
         else if (m == 4444444) // режим приставок
         {
-            if (score >= 1000)
-            {
-                SokrSc = score;
-
-                while (SokrSc >= 1000)
-                {
-                    SokrSc /= 1000;
-                    k++;
-                }
-
-                if (k == 1)
-                    ScoreText.text = SokrSc.ToString("#,#") + " кДж";
-                else if (k == 2)
-                    ScoreText.text = SokrSc.ToString("#,#") + " мДж";
-                else if (k == 3)
-                    ScoreText.text = SokrSc.ToString("#,#") + " гДж";
-                else if (k == 4)
-                    ScoreText.text = SokrSc.ToString("#,#") + " тДж";
-                else if (k == 5)
-                    ScoreText.text = SokrSc.ToString("#,#") + " пДж";
-                else if (k == 6)
-                    ScoreText.text = SokrSc.ToString("#,#") + " эДж";
-
-                k = 0;
-            }
-            else
-            {
-                if (score == 0)
-                    ScoreText.text = score + " Дж";
-                else
-                    ScoreText.text = score.ToString("#,#") + " Дж";
-            }
-
-            if (auto >= 1000)
-            {
-                SokrAu = auto;
-
-                while (SokrAu >= 1000)
-                {
-                    SokrAu /= 1000;
-                    k++;
-                }
-
-                if (k == 1)
-                    AutoText.text = SokrAu.ToString("#,#") + " кДж/сек";
-                else if (k == 2)
-                    AutoText.text = SokrAu.ToString("#,#") + " мДж/сек";
-                else if (k == 3)
-                    AutoText.text = SokrAu.ToString("#,#") + " гДж/сек";
-                else if (k == 4)
-                    AutoText.text = SokrAu.ToString("#,#") + " тДж/сек";
-                else if (k == 5)
-                    AutoText.text = SokrAu.ToString("#,#") + " пДж/сек";
-                else if (k == 6)
-                    AutoText.text = SokrAu.ToString("#,#") + " эДж/сек";
-
-                k = 0;
-            }
-            else
-            {
-                if (auto == 0)
-                    AutoText.text = auto + " Дж/сек";
-                else
-                    AutoText.text = auto.ToString("#,#") + " Дж/сек";
-            }
+            PrefixMode();
         }
 
         InfoText.text = "";
@@ -475,6 +280,22 @@ public class Game : MonoBehaviour
             InfoText.text += $"   Всего кликов:\n   {KolvoClick.ToString("#,#")}";         
     }
 
+    public void GetSaveScore()
+    {
+        if((SecondCount * auto)/10 > save)
+        {
+            score += save;
+            AllEnergy += save;
+        }
+        else
+        {
+            score += (SecondCount * auto)/10;
+            AllEnergy += (SecondCount * auto)/10;
+        }
+
+        SaveBonusPan.SetActive(false);
+    }
+
     public void OnClickBtn()
     {
         score += click;
@@ -490,16 +311,13 @@ public class Game : MonoBehaviour
         AllEnergy = 0;
         
         click = 0;
-        clickStr = click.ToString();
-        PlayerPrefs.SetString("clickStr", clickStr);
+        PlayerPrefs.SetString("click", click.ToString());
 
         auto = 0;
-        autoStr = auto.ToString();
-        PlayerPrefs.SetString("autoStr", autoStr);
+        PlayerPrefs.SetString("auto", auto.ToString());
 
         save = 0;
-        saveStr = save.ToString();
-        PlayerPrefs.SetString("saveStr", saveStr);
+        PlayerPrefs.SetString("save", save.ToString());
 
         KolvoClick = 0;
         PlayerPrefs.SetInt("KolvoClick", KolvoClick);
@@ -514,30 +332,27 @@ public class Game : MonoBehaviour
         {
             clickCost[i] = clickCostStart[i];
             clickNum[i] = 0;
-            clickCostStr[i] = clickCost[i].ToString();
-            PlayerPrefs.SetString($"clickCostStr{i}", clickCostStr[i]);
+            PlayerPrefs.SetString($"clickCost{i}", clickCost[i].ToString());
             PlayerPrefs.SetInt($"clickNum{i}", clickNum[i]);
             NumClickTxt[i].text = clickNum[i] + "";
             CostClickTxt[i].text = $"Цена: {clickCost[i]} Дж";
         }
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 30; i++)
         {
             autoCost[i] = autoCostStart[i];
             autoNum[i] = 0;
-            autoCostStr[i] = autoCost[i].ToString();
-            PlayerPrefs.SetString($"autoCostStr{i}", autoCostStr[i]);
+            PlayerPrefs.SetString($"autoCost{i}", autoCost[i].ToString());
             PlayerPrefs.SetInt($"autoNum{i}", autoNum[i]);
             NumAutoTxt[i].text = autoNum[i] + "";
             CostAutoTxt[i].text = $"Цена: {autoCost[i]} Дж";
         }
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 10; i++)
         {
             saveCost[i] = saveCostStart[i];
             saveNum[i] = 0;
-            saveCostStr[i] = saveCost[i].ToString();
-            PlayerPrefs.SetString($"saveCostStr{i}", saveCostStr[i]);
+            PlayerPrefs.SetString($"saveCost{i}", saveCost[i].ToString());
             PlayerPrefs.SetInt($"saveNum{i}", saveNum[i]);
             NumSaveTxt[i].text = saveNum[i] + "";
             CostSaveTxt[i].text = $"Цена: {saveCost[i]} Дж";
@@ -592,11 +407,9 @@ public class Game : MonoBehaviour
             clickCost[index] += clickCostStart[index];
             clickNum[index]++;
             click += clickBonus[index];
-            clickStr = click.ToString();
-            PlayerPrefs.SetString("clickStr", clickStr);
+            PlayerPrefs.SetString("click", click.ToString());
 
-            clickCostStr[index] = clickCost[index].ToString(); // сохранение покупок
-            PlayerPrefs.SetString($"clickCostStr{index}", clickCostStr[index]);
+            PlayerPrefs.SetString($"clickCost{index}", clickCost[index].ToString()); // сохранение покупок
             PlayerPrefs.SetInt($"clickNum{index}", clickNum[index]);
             NumClickTxt[index].text = clickNum[index] + "";
             CostClickTxt[index].text = $"Цена: {clickCost[index]} Дж";
@@ -651,11 +464,9 @@ public class Game : MonoBehaviour
             autoCost[index] += autoCostStart[index];
             autoNum[index]++;
             auto += autoBonus[index];
-            autoStr = auto.ToString();
-            PlayerPrefs.SetString("autoStr", autoStr);
+            PlayerPrefs.SetString("auto", auto.ToString());
 
-            autoCostStr[index] = autoCost[index].ToString(); // сохранение покупок
-            PlayerPrefs.SetString($"autoCostStr{index}", autoCostStr[index]);
+            PlayerPrefs.SetString($"autoCost{index}", autoCost[index].ToString()); // сохранение покупок
             PlayerPrefs.SetInt($"autoNum{index}", autoNum[index]);
             NumAutoTxt[index].text = autoNum[index] + "";
             CostAutoTxt[index].text = $"Цена: {autoCost[index]} Дж";
@@ -670,11 +481,9 @@ public class Game : MonoBehaviour
             saveCost[index] += saveCostStart[index];
             saveNum[index]++;
             save += saveBonus[index];
-            saveStr = save.ToString();
-            PlayerPrefs.SetString("saveStr", saveStr);
+            PlayerPrefs.SetString("save", save.ToString());
 
-            saveCostStr[index] = saveCost[index].ToString(); // сохранение покупок
-            PlayerPrefs.SetString($"saveCostStr{index}", saveCostStr[index]);
+            PlayerPrefs.SetString($"saveCost{index}", saveCost[index].ToString()); // сохранение покупок
             PlayerPrefs.SetInt($"saveNum{index}", saveNum[index]);
             NumSaveTxt[index].text = saveNum[index] + "";
             CostSaveTxt[index].text = $"Цена: {saveCost[index]} Дж";
@@ -688,6 +497,202 @@ public class Game : MonoBehaviour
             yield return new WaitForSeconds(1);
             score += auto;
             AllEnergy += auto;
+        }
+    }
+
+    public void NormalMode() // стандартный режим
+    {
+        if (score == 0)
+            ScoreText.text = score + " Дж";
+        else
+            ScoreText.text = score.ToString("#,#") + " Дж";
+
+        if (auto == 0)
+            AutoText.text = auto + " Дж/сек";
+        else
+            AutoText.text = auto.ToString("#,#") + " Дж/сек";
+    }
+
+    public void StepMode() // режим степени
+    {
+        if (score >= 100000000000)
+        {
+            SokrSc = score;
+
+            while (SokrSc >= 1000)
+            {
+                SokrSc /= 10;
+                k++;
+            }
+                
+            ScoreText.text = SokrSc + $" x 10^{k} Дж";
+
+            k = 0;
+        }
+        else
+        {
+            if (score == 0)
+                ScoreText.text = score + " Дж";
+            else
+                ScoreText.text = score.ToString("#,#") + " Дж";
+        }
+
+        if (auto >= 100000000000)
+        {
+            SokrAu = auto;
+
+            while (SokrAu >= 1000)
+            {
+                SokrAu /= 10;
+                k++;
+            }
+
+            AutoText.text = SokrAu + $" x 10^{k} Дж/сек";
+
+            k = 0;
+        }
+        else
+        {
+            if (auto == 0)
+                AutoText.text = auto + " Дж/сек";
+            else
+                AutoText.text = auto.ToString("#,#") + " Дж/сек";
+        }
+    }
+
+    public void SokrMode() // сокращённый режим
+    {
+        if (score >= 1000)
+        {
+            SokrSc = score;
+
+            while (SokrSc >= 1000)
+            {
+                SokrSc /= 1000;
+                k++;
+            }
+
+            if (k == 1)
+                ScoreText.text = SokrSc.ToString("#,#") + " тыс Дж";
+            else if (k == 2)
+                ScoreText.text = SokrSc.ToString("#,#") + " млн Дж";
+            else if (k == 3)
+                ScoreText.text = SokrSc.ToString("#,#") + " млр Дж";
+            else if (k == 4)
+                ScoreText.text = SokrSc.ToString("#,#") + " трилн Дж";
+            else if (k == 5)
+                ScoreText.text = SokrSc.ToString("#,#") + " квадрлн Дж";
+            else if (k == 6)
+                ScoreText.text = SokrSc.ToString("#,#") + " квинтлн Дж";
+            k = 0;
+        }
+        else
+        {
+            if (score == 0)
+                ScoreText.text = score + " Дж";
+            else
+                ScoreText.text = score.ToString("#,#") + " Дж";
+        }
+
+        if (auto >= 1000)
+        {
+            SokrAu = auto;
+
+            while (SokrAu >= 1000)
+            {
+                SokrAu /= 1000;
+                k++;
+            }
+
+            if (k == 1)
+                AutoText.text = SokrAu.ToString("#,#") + " тыс Дж/сек";
+            else if (k == 2)
+                AutoText.text = SokrAu.ToString("#,#") + " млн Дж/сек";
+            else if (k == 3)
+                AutoText.text = SokrAu.ToString("#,#") + " млр Дж/сек";
+            else if (k == 4)
+                AutoText.text = SokrAu.ToString("#,#") + " трилн Дж/сек";
+            else if (k == 5)
+                AutoText.text = SokrAu.ToString("#,#") + " квадрлн Дж/сек";
+            else if (k == 6)
+                AutoText.text = SokrAu.ToString("#,#") + " квинтлн Дж/сек";
+            k = 0;
+        }
+        else
+        {
+            if (auto == 0)
+                AutoText.text = auto + " Дж/сек";
+            else
+                AutoText.text = auto.ToString("#,#") + " Дж/сек";
+        }
+    }
+
+    public void PrefixMode() // режим приставок
+    {
+        if (score >= 1000)
+        {
+            SokrSc = score;
+
+            while (SokrSc >= 1000)
+            {
+                SokrSc /= 1000;
+                k++;
+            }
+
+            if (k == 1)
+                ScoreText.text = SokrSc.ToString("#,#") + " кДж";
+            else if (k == 2)
+                ScoreText.text = SokrSc.ToString("#,#") + " мДж";
+            else if (k == 3)
+                ScoreText.text = SokrSc.ToString("#,#") + " гДж";
+            else if (k == 4)
+                ScoreText.text = SokrSc.ToString("#,#") + " тДж";
+            else if (k == 5)
+                ScoreText.text = SokrSc.ToString("#,#") + " пДж";
+            else if (k == 6)
+                ScoreText.text = SokrSc.ToString("#,#") + " эДж";
+
+            k = 0;
+        }
+        else
+        {
+            if (score == 0)
+                ScoreText.text = score + " Дж";
+            else
+                ScoreText.text = score.ToString("#,#") + " Дж";
+        }
+
+        if (auto >= 1000)
+        {
+            SokrAu = auto;
+
+            while (SokrAu >= 1000)
+            {
+                SokrAu /= 1000;
+                k++;
+            }
+
+            if (k == 1)
+                AutoText.text = SokrAu.ToString("#,#") + " кДж/сек";
+            else if (k == 2)
+                AutoText.text = SokrAu.ToString("#,#") + " мДж/сек";
+            else if (k == 3)
+                AutoText.text = SokrAu.ToString("#,#") + " гДж/сек";
+            else if (k == 4)
+                AutoText.text = SokrAu.ToString("#,#") + " тДж/сек";
+            else if (k == 5)
+                AutoText.text = SokrAu.ToString("#,#") + " пДж/сек";
+            else if (k == 6)
+                AutoText.text = SokrAu.ToString("#,#") + " эДж/сек";
+
+            k = 0;
+        }
+        else
+        {
+            if (auto == 0)
+                AutoText.text = auto + " Дж/сек";
+            else
+                AutoText.text = auto.ToString("#,#") + " Дж/сек";
         }
     }
 
