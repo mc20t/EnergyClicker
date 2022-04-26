@@ -6,6 +6,8 @@ using System;
 
 public class Game : MonoBehaviour
 {
+    public DateTime DateStart; 
+    public DateTime StartDateTime;
     public ulong score = 50; // счёт
     public ulong click; // бонус за клик
     public ulong auto; // автоприбыль
@@ -16,34 +18,48 @@ public class Game : MonoBehaviour
     public int KolvoClick; // количесво нажатий
     public byte k;
     public int m = 255;
+    public int isOnSound = 55555;
+    public int CountNewClick;
+    public int CountNewAuto;
+    public int CountNewSave;
+    public ulong[] clickCost = new ulong[20];
+    public ulong[] autoCost = new ulong[30];
+    public ulong[] saveCost = new ulong[10];
     public int level;
-    private bool checkBon = true;
-    private bool checkAut = true;
-    private bool checkSav = true;
-    private bool checkInf = true;
-    private bool checkSet = true;
+    public ulong[] clickCostStart = new ulong[20];
+    public ulong[] autoCostStart = new ulong[30]; 
+    public ulong[] saveCostStart = new ulong[10];
+    public ulong SecondCount;
+    public ulong[] clickBonus = new ulong[20];
+    public ulong[] autoBonus = new ulong[30];
+    public ulong[] saveBonus = new ulong[10];
+    public int Second;
+    public int[] clickNum = new int[20];
+    public int[] autoNum = new int[30];
+    public int[] saveNum = new int[10];
+    public Text[] CostClickTxt;
+    public Text[] CostAutoTxt;
+    public Text[] CostSaveTxt; 
+    public Text[] BonClickTxt; 
+    public Text[] BonAutoTxt;
+    public Text[] BonSaveTxt;
+    public Text[] NumClickTxt; 
+    public Text[] NumAutoTxt;
+    public Text[] NumSaveTxt;
     public Text ScoreText; // вывод счёта на экран
     public Text AutoText; // вывод auto на экран
     public Text InfoText; // вывод на экран информации
     public Text LevelText;
     public Text SaveBonusText;
-    public Text[] CostClickTxt;
-    public Text[] CostAutoTxt;
-    public Text[] CostSaveTxt; 
-    public Text[] NumClickTxt; 
-    public Text[] NumAutoTxt;
-    public Text[] NumSaveTxt;
-    public GameObject BonusPan; 
-    public GameObject AutoPan;
-    public GameObject SavePan;
-    public GameObject InfoPan;
-    public GameObject SettingsPan;
-    public GameObject SaveBonusPan;
-    public GameObject Normal;
-    public GameObject Numbers;
-    public GameObject Short;
-    public GameObject Prefix;
-    public GameObject BntClick;
+    public Text NewClickText;
+    public Text ClickMessText;
+    public Text AutoMessText;
+    public Text SaveMessText;
+    public Text InputCode;
+    public Text InputScore;
+    public Text InputClick;
+    public Text InputAuto;
+    public Text InputSave;
     public GameObject[] BonusButton = new GameObject[20];
     public GameObject[] AutoButton = new GameObject[30];
     public GameObject[] SaveButton = new GameObject[10];
@@ -52,23 +68,50 @@ public class Game : MonoBehaviour
     public Sprite Proton = Resources.Load<Sprite>("Proton");
     public Sprite Nucleus = Resources.Load<Sprite>("Nucleus");
     public Sprite Atom = Resources.Load<Sprite>("Atom");
-    public ulong[] clickCost = { 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000 };
-    public ulong[] autoCost = { 100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000,
-                                100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000, 55000,  100, 950, 3000, 18000 };
-    public ulong[] saveCost = { 500, 2500, 13000, 28000, 93000, 500, 2500, 13000, 28000, 93000 };
-    public ulong[] clickCostStart = { 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000, 50, 300, 1000, 6000, 15000 };
-    public ulong[] autoCostStart = { 100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000,
-                                     100, 950, 3000, 18000, 55000, 100, 950, 3000, 18000, 55000,  100, 950, 3000, 18000 };
-    public ulong[] saveCostStart = { 500, 2500, 13000, 28000, 93000, 500, 2500, 13000, 28000, 93000 };
-    public ulong[] clickBonus = { 1, 5, 12, 48, 123, 1, 5, 12, 48, 123, 1, 5, 12, 48, 123, 1, 5, 12, 48, 123 };
-    public ulong[] autoBonus = { 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, 1, 3, 11, 47, 116, };
-    public ulong[] saveBonus = { 100, 200, 800, 3200, 8800, 100, 200, 800, 3200, 8800 };
-    public int[] clickNum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    public int[] autoNum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
-    public int[] saveNum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    public DateTime DateStart; 
-    public ulong SecondCount;
-    public int Second;
+    public Sprite Mol = Resources.Load<Sprite>("Mol");
+    public Sprite Gen = Resources.Load<Sprite>("Gen");
+    public Sprite Chrom = Resources.Load<Sprite>("Chrom");
+    public Sprite ListD = Resources.Load<Sprite>("ListD");
+    public Sprite Tree = Resources.Load<Sprite>("Tree");
+    public Sprite Forest = Resources.Load<Sprite>("Forest");
+    public Sprite Ostrov = Resources.Load<Sprite>("Ostrov");
+    public Sprite Earth = Resources.Load<Sprite>("Earth");
+    public Sprite SystPl = Resources.Load<Sprite>("SystPl");
+    public Sprite Galaxy = Resources.Load<Sprite>("Galaxy");
+    public Sprite GalaxyClass = Resources.Load<Sprite>("GalaxyClass");
+    public Sprite SuperGalaxyClass = Resources.Load<Sprite>("SuperGalaxyClass");
+    public Sprite Metagal = Resources.Load<Sprite>("Metagal");
+    public Sprite Uny = Resources.Load<Sprite>("Uny");
+    public Sprite SoundOn = Resources.Load<Sprite>("SoundOn");
+    public Sprite SoundOff = Resources.Load<Sprite>("SoundOff");
+    public GameObject BonusPan; 
+    public GameObject AutoPan;
+    public GameObject SavePan;
+    public GameObject InfoPan;
+    public GameObject SettingsPan;
+    public GameObject SaveBonusPan;
+    public GameObject NewClickPanel;
+    public GameObject SecretPan;
+    public GameObject AdminPan;
+    public GameObject NewClickImage;
+    public GameObject SoundBtn;
+    public GameObject MessBox;
+    public GameObject Normal;
+    public GameObject Numbers;
+    public GameObject Short;
+    public GameObject Prefix;
+    public GameObject BntClick;
+    public GameObject BG;
+    public GameObject ClickMess;
+    public GameObject AutoMess;
+    public GameObject SaveMess;
+    // public GameObject ClickParent, ClickTextPref;
+    // private ClickObject[] clickTextPool = new ClickObject[15]; /////////////////////////////////////////////////////////////////////////////////
+    private bool checkBon = true;
+    private bool checkAut = true;
+    private bool checkSav = true;
+    private bool checkInf = true;
+    private bool checkSet = true;
 
     void Start()
     {
@@ -77,8 +120,10 @@ public class Game : MonoBehaviour
         KolvoClick = PlayerPrefs.GetInt("KolvoClick", KolvoClick);
         m = PlayerPrefs.GetInt("m", m);
         level = PlayerPrefs.GetInt("level", level);
+        isOnSound = PlayerPrefs.GetInt("isOnSound", isOnSound);
 
         DateStart = DateTime.Parse(PlayerPrefs.GetString("DateStart"));
+        StartDateTime = DateTime.Parse(PlayerPrefs.GetString("StartDateTime"));
 
         score = ulong.Parse(PlayerPrefs.GetString("score"));
         click = ulong.Parse(PlayerPrefs.GetString("click"));
@@ -115,10 +160,80 @@ public class Game : MonoBehaviour
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Atom;
         }
+        else if(level == 6)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Mol;
+        }
+        else if(level == 7)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().color = new Color(255,255,255,0);
+            BG.GetComponent<Image>().color = new Color(255,255,255); ///////////////////////////////////////////////////////////
+            BG.GetComponent<Image>().sprite = Gen;
+        }
+        else if(level == 8)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Chrom;
+        }
+
+        else if(level == 10)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = ListD;
+        }
+        else if(level == 11)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Tree;
+        }
+        else if(level == 12)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Forest;
+        }
+        else if(level == 13)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Ostrov;
+        }
+        else if(level == 14)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Earth;
+        }
+        else if(level == 15)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = SystPl;
+        }
+
+        else if(level == 17)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Galaxy;
+        }
+        else if(level == 18)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = GalaxyClass;
+        }
+        else if(level == 19)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = SuperGalaxyClass;
+        }
+        else if(level == 20)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Metagal;
+        }
+
         else
         {
             BntClick.SetActive(true);
-            BntClick.GetComponent<Image>().sprite = Atom;
+            BntClick.GetComponent<Image>().sprite = Uny;
         }
 
         for(int i = 0; i < 20; i++) // восстановление покупок
@@ -126,7 +241,8 @@ public class Game : MonoBehaviour
             clickNum[i] = PlayerPrefs.GetInt($"clickNum{i}", clickNum[i]);
             clickCost[i] = ulong.Parse(PlayerPrefs.GetString($"clickCost{i}"));
             NumClickTxt[i].text = clickNum[i] + "";
-            CostClickTxt[i].text = $"Цена: {clickCost[i]} Дж";
+            CostClickTxt[i].text = $"Цена: {clickCost[i].ToString("#,#")} Дж";
+            BonClickTxt[i].text = $"+{clickBonus[i].ToString("#,#")} Дж";
         }
 
         for(int i = 0; i < 30; i++)
@@ -134,7 +250,8 @@ public class Game : MonoBehaviour
             autoNum[i] = PlayerPrefs.GetInt($"autoNum{i}", autoNum[i]);
             autoCost[i] = ulong.Parse(PlayerPrefs.GetString($"autoCost{i}"));
             NumAutoTxt[i].text = autoNum[i] + "";
-            CostAutoTxt[i].text = $"Цена: {autoCost[i]} Дж";
+            CostAutoTxt[i].text = $"Цена: {autoCost[i].ToString("#,#")} Дж";
+            BonAutoTxt[i].text = $"+{autoBonus[i].ToString("#,#")} Дж/сек";
         }
 
         for(int i = 0; i < 10; i++)
@@ -142,7 +259,8 @@ public class Game : MonoBehaviour
             saveNum[i] = PlayerPrefs.GetInt($"saveNum{i}", saveNum[i]);
             saveCost[i] = ulong.Parse(PlayerPrefs.GetString($"saveCost{i}"));
             NumSaveTxt[i].text = saveNum[i] + "";
-            CostSaveTxt[i].text = $"Цена: {saveCost[i]} Дж";
+            CostSaveTxt[i].text = $"Цена: {saveCost[i].ToString("#,#")} Дж";
+            BonSaveTxt[i].text = $"до {saveBonus[i].ToString("#,#")} Дж";
         }
 
         if (m == -1111111) // стандартный режим
@@ -177,29 +295,72 @@ public class Game : MonoBehaviour
         Second = (int)(DateTime.Now - DateStart).TotalSeconds; // секунд в интервале int 
         SecondCount = (ulong)Second; // секунд в интервале ulong 
 
-        if ((SecondCount * auto)/10 > 0) // накоплено более 0 Дж
+        if ((SecondCount * auto)/100 > 0 && save > 0) // накоплено более 0 Дж
         {
             SaveBonusPan.SetActive(true);
-            if((SecondCount * auto)/10 > save)
+
+            if ((SecondCount * auto)/100 > save)
             {
-                SaveBonusText.text = $"Вас не было\n{SecondCount} секунд \n\n Получено\n{save} Дж";
+                if (Second < 60) // seconds
+                    SaveBonusText.text = $"Вас не было\n{Second} с\n\nПолучено\n{save.ToString("#,#")} Дж";   
+                else if (Second >= 60 & Second < 3600) // minutes
+                    SaveBonusText.text = $"Вас не было\n{Second/60} м, {Second%60} с\n\nПолучено\n{save.ToString("#,#")} Дж";
+                else if (Second >= 3600 && Second < 86400) // hours
+                    SaveBonusText.text = $"Вас не было\n{Second/3600} ч, {Second/60%60} м, {Second%60} с\n\nПолучено\n{save.ToString("#,#")} Дж";
+                else if (Second >= 86400 && Second < 604800) //days
+                    SaveBonusText.text = $"Вас не было\n{Second/86400} д, {Second/3600%24} ч, {Second/60%60} м, {Second%60} с\n\nПолучено\n{save.ToString("#,#")} Дж";
+                else if (Second >= 604800) // weeks
+                    SaveBonusText.text = $"Вас не было\n{Second/604800} н, {Second/86400%7} д, {Second/3600%24} ч, {Second/60%60} м, {Second%60} с\n\nПолучено\n{save.ToString("#,#")} Дж";
+                else
+                    SaveBonusText.text = $"error";
             }
             else
             {
-                SaveBonusText.text = $"Вас не было\n{SecondCount} секунд \n\n Получено\n{(SecondCount * auto)/10} Дж";
+                if (Second < 60) // seconds
+                    SaveBonusText.text = $"Вас не было\n{Second} с\n\nПолучено\n{((SecondCount * auto)/100).ToString("#,#")} Дж";   
+                else if (Second >= 60 & Second < 3600) // minutes
+                    SaveBonusText.text = $"Вас не было\n{Second/60} м, {Second%60} с\n\nПолучено\n{((SecondCount * auto)/100).ToString("#,#")} Дж";
+                else if (Second >= 3600 && Second < 86400) // hours
+                    SaveBonusText.text = $"Вас не было\n{Second/3600} ч, {Second/60%60} м, {Second%60} с\n\nПолучено\n{((SecondCount * auto)/100).ToString("#,#")} Дж";
+                else if (Second >= 86400 && Second < 604800) //days
+                    SaveBonusText.text = $"Вас не было\n{Second/86400} д, {Second/3600%24} ч, {Second/60%60} м, {Second%60} с\n\nПолучено\n{((SecondCount * auto)/100).ToString("#,#")} Дж";
+                else if (Second >= 604800) // weeks
+                    SaveBonusText.text = $"Вас не было\n{Second/604800} н, {Second/86400%7} д, {Second/3600%24} ч, {Second/60%60} м, {Second%60} с\n\nПолучено\n{((SecondCount * auto)/100).ToString("#,#")} Дж";
+                else
+                    SaveBonusText.text = $"error";
             }
         }
         
         StartCoroutine(BonusPerSec()); // запуск корутины
+
+        // for(int i = 0; i < clickTextPool.Lenght; i++)
+        // {
+        //     clickTextPool[i] = Instantiate(ClickTextPref, ClickParent.transform).GetComponent<ClickObject>();
+        // }
+        // clickTextPool[0].StartMotion(5); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        if (isOnSound == 55555)
+        {
+            AudioListener.volume = 1f;
+            SoundBtn.GetComponent<Image>().sprite = SoundOn;
+        }
+        else
+        {
+            AudioListener.volume = 0f;
+            SoundBtn.GetComponent<Image>().sprite = SoundOff;
+        }
     }
 
     void Update()
     {
-        DateStart = DateTime.Now;
-
-        PlayerPrefs.SetString("DateStart", DateStart.ToString()); // сохранение счёта
-        PlayerPrefs.SetString("score", score.ToString());
+        PlayerPrefs.SetString("score", score.ToString());    // сохранение счёта
         PlayerPrefs.SetString("AllEnergy", AllEnergy.ToString());
+
+        if (SaveBonusPan.activeSelf == false)
+        {
+            DateStart = DateTime.Now;
+            PlayerPrefs.SetString("DateStart", DateStart.ToString());
+        }
 
         for(int i = 0; i < 20; i++)
         {
@@ -207,6 +368,9 @@ public class Game : MonoBehaviour
                 BonusButton[i].GetComponent<Image>().color = new Color(255,0,0);
             else
                 BonusButton[i].GetComponent<Image>().color = new Color(0,255,0);
+
+            if (clickCost[i] <= score && clickNum[i] == 0)
+                CountNewClick++;
         }
 
         for(int i = 0; i < 30; i++)
@@ -215,6 +379,9 @@ public class Game : MonoBehaviour
                 AutoButton[i].GetComponent<Image>().color = new Color(255,0,0);
             else
                 AutoButton[i].GetComponent<Image>().color = new Color(0,255,0);
+
+            if (autoCost[i] <= score && autoNum[i] == 0)
+                CountNewAuto++;
         }
 
         for(int i = 0; i < 10; i++)
@@ -223,7 +390,38 @@ public class Game : MonoBehaviour
                 SaveButton[i].GetComponent<Image>().color = new Color(255,0,0);
             else
                 SaveButton[i].GetComponent<Image>().color = new Color(0,255,0);
+
+            if (saveCost[i] <= score && saveNum[i] == 0)
+                CountNewSave++;
         }
+
+        if (CountNewClick > 0)
+        {
+            ClickMess.SetActive(true);
+            ClickMessText.text = CountNewClick + "";
+        }
+        else
+            ClickMess.SetActive(false);
+
+        if (CountNewAuto > 0)
+        {
+            AutoMess.SetActive(true);
+            AutoMessText.text = CountNewAuto + "";
+        }
+        else
+            AutoMess.SetActive(false);
+
+        if (CountNewSave > 0)
+        {
+            SaveMess.SetActive(true);
+            SaveMessText.text = CountNewSave + "";
+        }
+        else
+            SaveMess.SetActive(false);
+
+        CountNewClick = 0;
+        CountNewAuto = 0;
+        CountNewSave = 0;
 
         if (m == -1111111) // стандартный режим
         {
@@ -247,50 +445,52 @@ public class Game : MonoBehaviour
 
         InfoText.text = "";
 
-        InfoText.text += $"\n   Уровень:\n   {level}\n\n";
+        InfoText.text += $"\nУровень:\n   {level}\n\n";
 
         if (score == 0)
-            InfoText.text += $"   Имеющаяся энергия:\n   {score} Дж\n\n";
+            InfoText.text += $"Имеющаяся энергия:\n   {score} Дж\n\n";
         else
-            InfoText.text += $"   Имеющаяся энергия:\n   {score.ToString("#,#")} Дж\n\n";
+            InfoText.text += $"Имеющаяся энергия:\n   {score.ToString("#,#")} Дж\n\n";
 
         if (click == 0)
-            InfoText.text += $"   Получение энергии:\n   {click} Дж/клик\n\n";
+            InfoText.text += $"Получение энергии:\n   {click} Дж/клик\n\n";
         else
-            InfoText.text += $"   Получение энергии:\n   {click.ToString("#,#")} Дж/клик\n\n";
+            InfoText.text += $"Получение энергии:\n   {click.ToString("#,#")} Дж/клик\n\n";
 
         if (auto == 0)
-            InfoText.text += $"   Автодобыча энергии:\n   {auto} Дж/сек\n\n";
+            InfoText.text += $"Автодобыча энергии:\n   {auto} Дж/сек\n\n";
         else
-            InfoText.text += $"   Автодобыча энергии:\n   {auto.ToString("#,#")} Дж/сек\n\n";
+            InfoText.text += $"Автодобыча энергии:\n   {auto.ToString("#,#")} Дж/сек\n\n";
 
         if (save == 0)
-            InfoText.text += $"   Накопление энергии:\n   до {save} Дж\n\n";
+            InfoText.text += $"Накопление энергии:\n   до {save} Дж\n\n";
         else
-            InfoText.text += $"   Накопление энергии:\n   до {save.ToString("#,#")} Дж\n\n";
+            InfoText.text += $"Накопление энергии:\n   до {save.ToString("#,#")} Дж\n\n";
 
         if (AllEnergy == 0)
-            InfoText.text += $"   Всего энергии получено:\n   {AllEnergy} Дж\n\n";
+            InfoText.text += $"Всего энергии получено:\n   {AllEnergy} Дж\n\n";
         else
-            InfoText.text += $"   Всего энергии получено:\n   {AllEnergy.ToString("#,#")} Дж\n\n";
+            InfoText.text += $"Всего энергии получено:\n   {AllEnergy.ToString("#,#")} Дж\n\n";
 
         if (KolvoClick == 0)
-            InfoText.text += $"   Всего кликов:\n   {KolvoClick}";
+            InfoText.text += $"Всего кликов:\n   {KolvoClick}\n\n";
         else
-            InfoText.text += $"   Всего кликов:\n   {KolvoClick.ToString("#,#")}";         
+            InfoText.text += $"Всего кликов:\n   {KolvoClick.ToString("#,#")}\n\n";
+
+        InfoText.text += $"Начало:\n {StartDateTime}\n  {(int)(DateTime.Now - StartDateTime).TotalDays} дней назад";
     }
 
     public void GetSaveScore()
     {
-        if((SecondCount * auto)/10 > save)
+        if((SecondCount * auto)/100 > save)
         {
             score += save;
             AllEnergy += save;
         }
         else
         {
-            score += (SecondCount * auto)/10;
-            AllEnergy += (SecondCount * auto)/10;
+            score += (SecondCount * auto)/100;
+            AllEnergy += (SecondCount * auto)/100;
         }
 
         SaveBonusPan.SetActive(false);
@@ -304,58 +504,97 @@ public class Game : MonoBehaviour
         PlayerPrefs.SetInt("KolvoClick", KolvoClick);
     }
 
-    public void Reset() //заново
+    public void ActiveMessBox()
     {
-        score = 50;
+        MessBox.SetActive(true);
+    }
 
-        AllEnergy = 0;
+    public void Restart(bool flag) //заново
+    {
+        if (flag == true)
+        {
+            StartDateTime = DateTime.Now;
+            PlayerPrefs.SetString("StartDateTime", StartDateTime.ToString());
+
+            score = 50;
+
+            AllEnergy = 0;
         
-        click = 0;
-        PlayerPrefs.SetString("click", click.ToString());
+            click = 0;
+            PlayerPrefs.SetString("click", click.ToString());
 
-        auto = 0;
-        PlayerPrefs.SetString("auto", auto.ToString());
+            auto = 0;
+            PlayerPrefs.SetString("auto", auto.ToString());
 
-        save = 0;
-        PlayerPrefs.SetString("save", save.ToString());
+            save = 0;
+            PlayerPrefs.SetString("save", save.ToString());
 
-        KolvoClick = 0;
-        PlayerPrefs.SetInt("KolvoClick", KolvoClick);
+            KolvoClick = 0;
+            PlayerPrefs.SetInt("KolvoClick", KolvoClick);
 
-        level = 0;
-        PlayerPrefs.SetInt("level", level);
-        LevelText.text = level.ToString();
+            level = 0;
+            PlayerPrefs.SetInt("level", level);
+            LevelText.text = level.ToString();
 
-        BntClick.SetActive(false);
+            BntClick.SetActive(false);
 
-        for(int i = 0; i < 20; i++) // сброс магазина
-        {
-            clickCost[i] = clickCostStart[i];
-            clickNum[i] = 0;
-            PlayerPrefs.SetString($"clickCost{i}", clickCost[i].ToString());
-            PlayerPrefs.SetInt($"clickNum{i}", clickNum[i]);
-            NumClickTxt[i].text = clickNum[i] + "";
-            CostClickTxt[i].text = $"Цена: {clickCost[i]} Дж";
+            for(int i = 0; i < 20; i++) // сброс магазина
+            {
+                clickCost[i] = clickCostStart[i];
+                clickNum[i] = 0;
+                PlayerPrefs.SetString($"clickCost{i}", clickCost[i].ToString());
+                PlayerPrefs.SetInt($"clickNum{i}", clickNum[i]);
+                NumClickTxt[i].text = clickNum[i] + "";
+                CostClickTxt[i].text = $"Цена: {clickCost[i].ToString("#,#")} Дж";
+            }
+
+            for(int i = 0; i < 30; i++)
+            {
+                autoCost[i] = autoCostStart[i];
+                autoNum[i] = 0;
+                PlayerPrefs.SetString($"autoCost{i}", autoCost[i].ToString());
+                PlayerPrefs.SetInt($"autoNum{i}", autoNum[i]);
+                NumAutoTxt[i].text = autoNum[i] + "";
+                CostAutoTxt[i].text = $"Цена: {autoCost[i].ToString("#,#")} Дж";
+            }
+
+            for(int i = 0; i < 10; i++)
+            {
+                saveCost[i] = saveCostStart[i];
+                saveNum[i] = 0;
+                PlayerPrefs.SetString($"saveCost{i}", saveCost[i].ToString());
+                PlayerPrefs.SetInt($"saveNum{i}", saveNum[i]);
+                NumSaveTxt[i].text = saveNum[i] + "";
+                CostSaveTxt[i].text = $"Цена: {saveCost[i].ToString("#,#")} Дж";
+            }
+
+            MessBox.SetActive(false);
         }
 
-        for(int i = 0; i < 30; i++)
-        {
-            autoCost[i] = autoCostStart[i];
-            autoNum[i] = 0;
-            PlayerPrefs.SetString($"autoCost{i}", autoCost[i].ToString());
-            PlayerPrefs.SetInt($"autoNum{i}", autoNum[i]);
-            NumAutoTxt[i].text = autoNum[i] + "";
-            CostAutoTxt[i].text = $"Цена: {autoCost[i]} Дж";
-        }
+        else
+            MessBox.SetActive(false);
+    }
 
-        for(int i = 0; i < 10; i++)
+    public void PlayAudio(AudioClip clip)
+    {
+        GetComponent<AudioSource>().PlayOneShot(clip);
+    }
+
+    public void OnPlayAudio()
+    {
+        if (isOnSound == -55555)
         {
-            saveCost[i] = saveCostStart[i];
-            saveNum[i] = 0;
-            PlayerPrefs.SetString($"saveCost{i}", saveCost[i].ToString());
-            PlayerPrefs.SetInt($"saveNum{i}", saveNum[i]);
-            NumSaveTxt[i].text = saveNum[i] + "";
-            CostSaveTxt[i].text = $"Цена: {saveCost[i]} Дж";
+            AudioListener.volume = 1f;
+            isOnSound = 55555;
+            SoundBtn.GetComponent<Image>().sprite = SoundOn;
+            PlayerPrefs.SetInt("isOnSound", isOnSound);
+        }
+        else
+        {
+            AudioListener.volume = 0f;
+            isOnSound = -55555;
+            SoundBtn.GetComponent<Image>().sprite = SoundOff;
+            PlayerPrefs.SetInt("isOnSound", isOnSound);
         }
     }
 
@@ -399,6 +638,55 @@ public class Game : MonoBehaviour
         Prefix.GetComponent<Image>().color = new Color(0,255,0);
     }
 
+    public void GetNewClick()
+    {
+        NewClickPanel.SetActive(false);
+
+        if (level == 1)
+            BntClick.GetComponent<Image>().sprite = QuanSt;
+        else if (level == 2)
+            BntClick.GetComponent<Image>().sprite = Quark;
+        else if (level == 3)
+            BntClick.GetComponent<Image>().sprite = Proton;
+        else if (level == 4)
+            BntClick.GetComponent<Image>().sprite = Nucleus;
+        else if (level == 5)
+            BntClick.GetComponent<Image>().sprite = Atom;
+        else if (level == 6)
+            BntClick.GetComponent<Image>().sprite = Mol;
+        else if (level == 7)
+            BntClick.GetComponent<Image>().sprite = Gen;
+        else if (level == 8)
+            BntClick.GetComponent<Image>().sprite = Chrom;
+
+        else if (level == 10)
+            BntClick.GetComponent<Image>().sprite = ListD;
+        else if (level == 11)
+            BntClick.GetComponent<Image>().sprite = Tree;
+        else if (level == 12)
+            BntClick.GetComponent<Image>().sprite = Forest;
+        else if (level == 13)
+            BntClick.GetComponent<Image>().sprite = Ostrov;
+        else if (level == 14)
+            BntClick.GetComponent<Image>().sprite = Earth;
+        else if (level == 15)
+            BntClick.GetComponent<Image>().sprite = SystPl;
+
+        else if (level == 17)
+            BntClick.GetComponent<Image>().sprite = Galaxy;
+        else if (level == 18)
+            BntClick.GetComponent<Image>().sprite = GalaxyClass;
+        else if (level == 19)
+            BntClick.GetComponent<Image>().sprite = SuperGalaxyClass;
+        else if (level == 20)
+            BntClick.GetComponent<Image>().sprite = Metagal;
+
+        else
+            BntClick.GetComponent<Image>().sprite = Uny;
+
+        BntClick.SetActive(true);
+    }
+
     public void BonusBtn(int index) //click
     {
         if (score >= clickCost[index])
@@ -412,46 +700,70 @@ public class Game : MonoBehaviour
             PlayerPrefs.SetString($"clickCost{index}", clickCost[index].ToString()); // сохранение покупок
             PlayerPrefs.SetInt($"clickNum{index}", clickNum[index]);
             NumClickTxt[index].text = clickNum[index] + "";
-            CostClickTxt[index].text = $"Цена: {clickCost[index]} Дж";
+            CostClickTxt[index].text = $"Цена: {clickCost[index].ToString("#,#")} Дж";
 
             if ((index + 1) > level)
             {
-                level += index + 1 - level;
+                level = index + 1;
                 PlayerPrefs.SetInt("level", level);
                 LevelText.text = level.ToString();
-                
-                if (level == 0)
-                    BntClick.SetActive(false);
-                else if(level == 1)
-                {
-                    BntClick.SetActive(true);
-                    BntClick.GetComponent<Image>().sprite = QuanSt;
-                }
-                else if(level == 2)
-                {
-                    BntClick.SetActive(true);
-                    BntClick.GetComponent<Image>().sprite = Quark;
-                }
-                else if(level == 3)
-                {
-                    BntClick.SetActive(true);
-                    BntClick.GetComponent<Image>().sprite = Proton;
-                }
-                else if(level == 4)
-                {
-                    BntClick.SetActive(true);
-                    BntClick.GetComponent<Image>().sprite = Nucleus;
-                }
-                else if(level == 5)
-                {
-                    BntClick.SetActive(true);
-                    BntClick.GetComponent<Image>().sprite = Atom;
-                }
+                BntClick.SetActive(false);
+                NewClickPanel.SetActive(true);
+                NewClickText.text = $"Достигнут\n{level} уровень";
+
+                SavePan.SetActive(false);
+                BonusPan.SetActive(false);
+                AutoPan.SetActive(false);
+                InfoPan.SetActive(false);
+                SettingsPan.SetActive(false);
+
+                checkSav = true;
+                checkSet = true;
+                checkInf = true;
+                checkAut = true;
+                checkBon = true;
+
+                if (level == 1)
+                    NewClickImage.GetComponent<Image>().sprite = QuanSt;
+                else if (level == 2)
+                    NewClickImage.GetComponent<Image>().sprite = Quark;
+                else if (level == 3)
+                    NewClickImage.GetComponent<Image>().sprite = Proton;
+                else if (level == 4)
+                    NewClickImage.GetComponent<Image>().sprite = Nucleus;
+                else if (level == 5)
+                    NewClickImage.GetComponent<Image>().sprite = Atom;
+                else if (level == 6)
+                    NewClickImage.GetComponent<Image>().sprite = Mol;
+                else if (level == 7)
+                    NewClickImage.GetComponent<Image>().sprite = Gen;
+                else if (level == 8)
+                    NewClickImage.GetComponent<Image>().sprite = Chrom;
+
+                else if (level == 10)
+                    NewClickImage.GetComponent<Image>().sprite = ListD;
+                else if (level == 11)
+                    NewClickImage.GetComponent<Image>().sprite = Tree;
+                else if (level == 12)
+                    NewClickImage.GetComponent<Image>().sprite = Forest;
+                else if (level == 13)
+                    NewClickImage.GetComponent<Image>().sprite = Ostrov;
+                else if (level == 14)
+                    NewClickImage.GetComponent<Image>().sprite = Earth;
+                else if (level == 15)
+                    NewClickImage.GetComponent<Image>().sprite = SystPl;
+
+                else if (level == 17)
+                    NewClickImage.GetComponent<Image>().sprite = Galaxy;
+                else if (level == 18)
+                    NewClickImage.GetComponent<Image>().sprite = GalaxyClass;
+                else if (level == 19)
+                    NewClickImage.GetComponent<Image>().sprite = SuperGalaxyClass;
+                else if (level == 20)
+                    NewClickImage.GetComponent<Image>().sprite = Metagal;
+
                 else
-                {
-                    BntClick.SetActive(true);
-                    BntClick.GetComponent<Image>().sprite = Atom;
-                }
+                    NewClickImage.GetComponent<Image>().sprite = Uny;
             }
         }
     }
@@ -469,7 +781,7 @@ public class Game : MonoBehaviour
             PlayerPrefs.SetString($"autoCost{index}", autoCost[index].ToString()); // сохранение покупок
             PlayerPrefs.SetInt($"autoNum{index}", autoNum[index]);
             NumAutoTxt[index].text = autoNum[index] + "";
-            CostAutoTxt[index].text = $"Цена: {autoCost[index]} Дж";
+            CostAutoTxt[index].text = $"Цена: {autoCost[index].ToString("#,#")} Дж";
         }
     }
 
@@ -486,7 +798,7 @@ public class Game : MonoBehaviour
             PlayerPrefs.SetString($"saveCost{index}", saveCost[index].ToString()); // сохранение покупок
             PlayerPrefs.SetInt($"saveNum{index}", saveNum[index]);
             NumSaveTxt[index].text = saveNum[index] + "";
-            CostSaveTxt[index].text = $"Цена: {saveCost[index]} Дж";
+            CostSaveTxt[index].text = $"Цена: {saveCost[index].ToString("#,#")} Дж";
         }
     }
 
@@ -515,7 +827,7 @@ public class Game : MonoBehaviour
 
     public void StepMode() // режим степени
     {
-        if (score >= 100000000000)
+        if (score >= 100000000)
         {
             SokrSc = score;
 
@@ -537,7 +849,7 @@ public class Game : MonoBehaviour
                 ScoreText.text = score.ToString("#,#") + " Дж";
         }
 
-        if (auto >= 100000000000)
+        if (auto >= 100000000)
         {
             SokrAu = auto;
 
@@ -694,6 +1006,54 @@ public class Game : MonoBehaviour
             else
                 AutoText.text = auto.ToString("#,#") + " Дж/сек";
         }
+    }
+
+    public void OnSecretPan()
+    {
+        SecretPan.SetActive(true);
+    }
+
+    public void ExitSecretPan()
+    {
+        SecretPan.SetActive(false);
+    }
+
+    public void OnAdminPan()
+    {
+        if (InputCode.text == "123")
+        {
+            AdminPan.SetActive(true);
+            SecretPan.SetActive(false);
+        }
+    }
+
+    public void ExitAdminPan()
+    {
+        AdminPan.SetActive(false);
+    }
+
+    public void EnterBonus()
+    {
+        try
+        {
+            score = ulong.Parse(InputScore.text);
+        }   catch {   }
+        try
+        {
+            click = ulong.Parse(InputClick.text);
+        }   catch {   }
+        try
+        {
+            auto = ulong.Parse(InputAuto.text);
+        }   catch {   }
+        try
+        {
+            save = ulong.Parse(InputSave.text);
+        }   catch {   }
+        
+        PlayerPrefs.SetString("click", click.ToString());
+        PlayerPrefs.SetString("auto", auto.ToString());
+        PlayerPrefs.SetString("save", save.ToString());
     }
 
     public void OnInfoPan() //панель информации
