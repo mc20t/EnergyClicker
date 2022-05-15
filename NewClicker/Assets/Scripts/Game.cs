@@ -46,6 +46,9 @@ public class Game : MonoBehaviour
     public Text[] NumClickTxt; 
     public Text[] NumAutoTxt;
     public Text[] NumSaveTxt;
+    public Text BonClickInfoTxt; 
+    public Text BonAutoInfoTxt;
+    public Text BonSaveInfoTxt;
     public Text ScoreText; // вывод счёта на экран
     public Text AutoText; // вывод auto на экран
     public Text InfoText; // вывод на экран информации
@@ -71,17 +74,28 @@ public class Game : MonoBehaviour
     public Sprite Mol = Resources.Load<Sprite>("Mol");
     public Sprite Gen = Resources.Load<Sprite>("Gen");
     public Sprite Chrom = Resources.Load<Sprite>("Chrom");
+    public Sprite Kletka = Resources.Load<Sprite>("Kletka");
     public Sprite ListD = Resources.Load<Sprite>("ListD");
     public Sprite Tree = Resources.Load<Sprite>("Tree");
     public Sprite Forest = Resources.Load<Sprite>("Forest");
     public Sprite Ostrov = Resources.Load<Sprite>("Ostrov");
     public Sprite Earth = Resources.Load<Sprite>("Earth");
     public Sprite SystPl = Resources.Load<Sprite>("SystPl");
+    //public Sprite  = Resources.Load<Sprite>("");
     public Sprite Galaxy = Resources.Load<Sprite>("Galaxy");
     public Sprite GalaxyClass = Resources.Load<Sprite>("GalaxyClass");
     public Sprite SuperGalaxyClass = Resources.Load<Sprite>("SuperGalaxyClass");
     public Sprite Metagal = Resources.Load<Sprite>("Metagal");
     public Sprite Uny = Resources.Load<Sprite>("Uny");
+    public Sprite f8 = Resources.Load<Sprite>("f8");
+    public Sprite f9 = Resources.Load<Sprite>("f9");
+    public Sprite f10 = Resources.Load<Sprite>("f10");
+    public Sprite f11 = Resources.Load<Sprite>("f11");
+    public Sprite f12 = Resources.Load<Sprite>("f12");
+    //public Sprite f13 = Resources.Load<Sprite>("f13");
+    public Sprite f14 = Resources.Load<Sprite>("f14");
+    //public Sprite f15 = Resources.Load<Sprite>("f15");
+    //public Sprite f16 = Resources.Load<Sprite>("f16");
     public Sprite SoundOn = Resources.Load<Sprite>("SoundOn");
     public Sprite SoundOff = Resources.Load<Sprite>("SoundOff");
     public GameObject BonusPan; 
@@ -105,8 +119,8 @@ public class Game : MonoBehaviour
     public GameObject ClickMess;
     public GameObject AutoMess;
     public GameObject SaveMess;
-    // public GameObject ClickParent, ClickTextPref;
-    // private ClickObject[] clickTextPool = new ClickObject[15]; /////////////////////////////////////////////////////////////////////////////////
+    public GameObject ClickParent, ClickTextPref;
+    private GameObject[] clickTextPool = new GameObject[15]; /////////////////////////////////////////////////////////////////////////////////
     private bool checkBon = true;
     private bool checkAut = true;
     private bool checkSav = true;
@@ -134,106 +148,188 @@ public class Game : MonoBehaviour
         LevelText.text = level.ToString();
 
         if (level == 0)
+        {
+            BG.GetComponent<Image>().color = new Color(0,0,0);
             BntClick.SetActive(false);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
         else if(level == 1)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = QuanSt;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 2)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Quark;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 3)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Proton;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 4)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Nucleus;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 5)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Atom;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 6)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Mol;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 7)
         {
             BntClick.SetActive(true);
-            BntClick.GetComponent<Image>().color = new Color(255,255,255,0);
-            BG.GetComponent<Image>().color = new Color(255,255,255); ///////////////////////////////////////////////////////////
-            BG.GetComponent<Image>().sprite = Gen;
+            BntClick.GetComponent<Image>().sprite = Gen;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 8)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Chrom;
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f8;
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
-
+        else if(level == 9)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Kletka;
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f9;
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
         else if(level == 10)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = ListD;
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f10;
+            ScoreText.color = new Color(0,0,0);
+            AutoText.color = new Color(0,0,0);
         }
         else if(level == 11)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Tree;
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f11;
+            ScoreText.color = new Color(0,0,0);
+            AutoText.color = new Color(0,0,0);
         }
         else if(level == 12)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Forest;
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f12;
+            ScoreText.color = new Color(0,0,0);
+            AutoText.color = new Color(0,0,0);
         }
         else if(level == 13)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Ostrov;
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            //BG.GetComponent<Image>().sprite = f13;
+            ScoreText.color = new Color(0,0,0);
+            AutoText.color = new Color(0,0,0);
         }
         else if(level == 14)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Earth;
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f14;
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 15)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = SystPl;
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            //BG.GetComponent<Image>().sprite = f15;
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
-
+        // else if(level == 16)
+        // {
+        //     BntClick.SetActive(true);
+        //     BntClick.GetComponent<Image>().sprite = ;
+        //     BG.GetComponent<Image>().color = new Color(255,255,255);
+        //     BG.GetComponent<Image>().sprite = f16;
+        //     ScoreText.color = new Color(255,255,255);
+        //     AutoText.color = new Color(255,255,255);
+        // }
         else if(level == 17)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Galaxy;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 18)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = GalaxyClass;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 19)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = SuperGalaxyClass;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
         else if(level == 20)
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Metagal;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
-
         else
         {
             BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Uny;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
         }
 
         for(int i = 0; i < 20; i++) // восстановление покупок
@@ -329,26 +425,53 @@ public class Game : MonoBehaviour
                 else
                     SaveBonusText.text = $"error";
             }
+
+            if (click == 0)
+                BonClickInfoTxt.text = $"Получение энергии:\n   {click} Дж/клик";
+            else
+                BonClickInfoTxt.text = $"Получение энергии:\n   {click.ToString("#,#")} Дж/клик";
+            if (auto == 0)
+                BonAutoInfoTxt.text = $"Автодобыча энергии:\n{auto} Дж/сек";
+            else
+                BonAutoInfoTxt.text = $"Автодобыча энергии:\n{auto.ToString("#,#")} Дж/сек";
+            if (save == 0)
+                BonSaveInfoTxt.text = $"Накопление энергии:\nдо {save} Дж";
+            else
+                BonSaveInfoTxt.text = $"Накопление энергии:\nдо {save.ToString("#,#")} Дж";
+
+            if (isOnSound == 55555)
+            {
+                AudioListener.volume = 1f;
+                SoundBtn.GetComponent<Image>().sprite = SoundOn;
+                PlayerPrefs.SetInt("isOnSound", isOnSound);
+            }
+            else
+            {
+                AudioListener.volume = 0f;
+                SoundBtn.GetComponent<Image>().sprite = SoundOff;
+                PlayerPrefs.SetInt("isOnSound", isOnSound);
+            }
         }
         
         StartCoroutine(BonusPerSec()); // запуск корутины
 
-        // for(int i = 0; i < clickTextPool.Lenght; i++)
-        // {
-        //     clickTextPool[i] = Instantiate(ClickTextPref, ClickParent.transform).GetComponent<ClickObject>();
-        // }
-        // clickTextPool[0].StartMotion(5); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        for(int i = 0; i < 15; i++)//////////////////////////////////////////////////////////////////////////////
+            clickTextPool[i] = Instantiate(ClickTextPref, ClickParent.transform).GetComponent<GameObject>();
 
-        if (isOnSound == 55555)
-        {
-            AudioListener.volume = 1f;
-            SoundBtn.GetComponent<Image>().sprite = SoundOn;
-        }
+        if (click == 0)
+            BonClickInfoTxt.text = $"Получение энергии:\n{click} Дж/клик";
         else
-        {
-            AudioListener.volume = 0f;
-            SoundBtn.GetComponent<Image>().sprite = SoundOff;
-        }
+            BonClickInfoTxt.text = $"Получение энергии:\n{click.ToString("#,#")} Дж/клик";
+
+        if (auto == 0)
+            BonAutoInfoTxt.text = $"Автодобыча энергии:\n{auto} Дж/сек";
+        else
+            BonAutoInfoTxt.text = $"Автодобыча энергии:\n{auto.ToString("#,#")} Дж/сек";
+
+        if (save == 0)
+            BonSaveInfoTxt.text = $"Накопление энергии:\nдо {save} Дж";
+        else
+            BonSaveInfoTxt.text = $"Накопление энергии:\nдо {save.ToString("#,#")} Дж";
     }
 
     void Update()
@@ -537,6 +660,9 @@ public class Game : MonoBehaviour
             LevelText.text = level.ToString();
 
             BntClick.SetActive(false);
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
 
             for(int i = 0; i < 20; i++) // сброс магазина
             {
@@ -567,6 +693,10 @@ public class Game : MonoBehaviour
                 NumSaveTxt[i].text = saveNum[i] + "";
                 CostSaveTxt[i].text = $"Цена: {saveCost[i].ToString("#,#")} Дж";
             }
+
+            BonClickInfoTxt.text = $"Получение энергии:\n{click} Дж/клик";
+            BonAutoInfoTxt.text = $"Автодобыча энергии:\n{auto} Дж/сек";
+            BonSaveInfoTxt.text = $"Накопление энергии:\nдо {save} Дж";
 
             MessBox.SetActive(false);
         }
@@ -642,47 +772,190 @@ public class Game : MonoBehaviour
     {
         NewClickPanel.SetActive(false);
 
-        if (level == 1)
+        if (level == 0)
+        {
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            BntClick.SetActive(false);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 1)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = QuanSt;
-        else if (level == 2)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 2)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Quark;
-        else if (level == 3)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 3)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Proton;
-        else if (level == 4)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 4)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Nucleus;
-        else if (level == 5)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 5)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Atom;
-        else if (level == 6)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 6)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Mol;
-        else if (level == 7)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 7)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Gen;
-        else if (level == 8)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 8)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Chrom;
-
-        else if (level == 10)
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f8;
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 9)
+        {
+            BntClick.SetActive(true);
+            BntClick.GetComponent<Image>().sprite = Kletka;
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f9;
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 10)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = ListD;
-        else if (level == 11)
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f10;
+            ScoreText.color = new Color(0,0,0);
+            AutoText.color = new Color(0,0,0);
+        }
+        else if(level == 11)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Tree;
-        else if (level == 12)
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f11;
+            ScoreText.color = new Color(0,0,0);
+            AutoText.color = new Color(0,0,0);
+        }
+        else if(level == 12)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Forest;
-        else if (level == 13)
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f12;
+            ScoreText.color = new Color(0,0,0);
+            AutoText.color = new Color(0,0,0);
+        }
+        else if(level == 13)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Ostrov;
-        else if (level == 14)
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            //BG.GetComponent<Image>().sprite = f13;
+            ScoreText.color = new Color(0,0,0);
+            AutoText.color = new Color(0,0,0);
+        }
+        else if(level == 14)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Earth;
-        else if (level == 15)
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            BG.GetComponent<Image>().sprite = f14;
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 15)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = SystPl;
-
-        else if (level == 17)
+            BG.GetComponent<Image>().color = new Color(255,255,255);
+            //BG.GetComponent<Image>().sprite = f15;
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        // else if(level == 16)
+        // {
+        //     BntClick.SetActive(true);
+        //     BntClick.GetComponent<Image>().sprite = ;
+        //     BG.GetComponent<Image>().color = new Color(255,255,255);
+        //     BG.GetComponent<Image>().sprite = f16;
+        //     ScoreText.color = new Color(255,255,255);
+        //     AutoText.color = new Color(255,255,255);
+        // }
+        else if(level == 17)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Galaxy;
-        else if (level == 18)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 18)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = GalaxyClass;
-        else if (level == 19)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 19)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = SuperGalaxyClass;
-        else if (level == 20)
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
+        else if(level == 20)
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Metagal;
-
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
         else
+        {
+            BntClick.SetActive(true);
             BntClick.GetComponent<Image>().sprite = Uny;
+            BG.GetComponent<Image>().color = new Color(0,0,0);
+            ScoreText.color = new Color(255,255,255);
+            AutoText.color = new Color(255,255,255);
+        }
 
         BntClick.SetActive(true);
     }
@@ -696,7 +969,10 @@ public class Game : MonoBehaviour
             clickNum[index]++;
             click += clickBonus[index];
             PlayerPrefs.SetString("click", click.ToString());
-
+            if (click == 0)
+                BonClickInfoTxt.text = $"Получение энергии:\n   {click} Дж/клик";
+            else
+                BonClickInfoTxt.text = $"Получение энергии:\n   {click.ToString("#,#")} Дж/клик";
             PlayerPrefs.SetString($"clickCost{index}", clickCost[index].ToString()); // сохранение покупок
             PlayerPrefs.SetInt($"clickNum{index}", clickNum[index]);
             NumClickTxt[index].text = clickNum[index] + "";
@@ -739,7 +1015,8 @@ public class Game : MonoBehaviour
                     NewClickImage.GetComponent<Image>().sprite = Gen;
                 else if (level == 8)
                     NewClickImage.GetComponent<Image>().sprite = Chrom;
-
+                else if (level == 9)
+                    NewClickImage.GetComponent<Image>().sprite = Kletka;
                 else if (level == 10)
                     NewClickImage.GetComponent<Image>().sprite = ListD;
                 else if (level == 11)
@@ -761,7 +1038,6 @@ public class Game : MonoBehaviour
                     NewClickImage.GetComponent<Image>().sprite = SuperGalaxyClass;
                 else if (level == 20)
                     NewClickImage.GetComponent<Image>().sprite = Metagal;
-
                 else
                     NewClickImage.GetComponent<Image>().sprite = Uny;
             }
@@ -777,7 +1053,10 @@ public class Game : MonoBehaviour
             autoNum[index]++;
             auto += autoBonus[index];
             PlayerPrefs.SetString("auto", auto.ToString());
-
+            if (auto == 0)
+                BonAutoInfoTxt.text = $"Автодобыча энергии:\n{auto} Дж/сек";
+            else
+                BonAutoInfoTxt.text = $"Автодобыча энергии:\n{auto.ToString("#,#")} Дж/сек";
             PlayerPrefs.SetString($"autoCost{index}", autoCost[index].ToString()); // сохранение покупок
             PlayerPrefs.SetInt($"autoNum{index}", autoNum[index]);
             NumAutoTxt[index].text = autoNum[index] + "";
@@ -794,7 +1073,10 @@ public class Game : MonoBehaviour
             saveNum[index]++;
             save += saveBonus[index];
             PlayerPrefs.SetString("save", save.ToString());
-
+            if (save == 0)
+                BonSaveInfoTxt.text = $"Накопление энергии:\nдо {save} Дж";
+            else
+                BonSaveInfoTxt.text = $"Накопление энергии:\nдо {save.ToString("#,#")} Дж";
             PlayerPrefs.SetString($"saveCost{index}", saveCost[index].ToString()); // сохранение покупок
             PlayerPrefs.SetInt($"saveNum{index}", saveNum[index]);
             NumSaveTxt[index].text = saveNum[index] + "";

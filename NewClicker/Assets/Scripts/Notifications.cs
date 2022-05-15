@@ -22,8 +22,8 @@ public class Notifications : MonoBehaviour
     {
         AndroidNotification notification = new AndroidNotification()
         {
-            Title = "Накопитель полон",
-            Text = "Излишки будут утеряны",
+            Title = "Накопитель переполнен!",
+            Text = "Излишки будут утеряны!!!",
             FireTime = System.DateTime.Now.AddSeconds(5)
         };
 
