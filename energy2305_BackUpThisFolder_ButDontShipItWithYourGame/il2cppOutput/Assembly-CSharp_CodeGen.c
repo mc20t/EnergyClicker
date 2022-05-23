@@ -1,0 +1,217 @@
+﻿#include "pch-c.h"
+#ifndef _MSC_VER
+# include <alloca.h>
+#else
+# include <malloc.h>
+#endif
+
+
+#include "codegen/il2cpp-codegen-metadata.h"
+
+
+
+
+
+// 0x00000001 System.Void ClickOblect::Update()
+extern void ClickOblect_Update_m665D8A10468295B24769E784680048F0937F1D0A (void);
+// 0x00000002 System.Void ClickOblect::StartMotion(System.UInt64)
+extern void ClickOblect_StartMotion_m55CAD48EE4190B929BE89E8794C8CB7F3EAF829A (void);
+// 0x00000003 System.Void ClickOblect::.ctor()
+extern void ClickOblect__ctor_m04E3699D1B525E3BC4A8AFA1F71271AD5252794E (void);
+// 0x00000004 System.Void Game::Start()
+extern void Game_Start_m81FFBF966FD86236D5383C0295E70170EAE3F1DB (void);
+// 0x00000005 System.Void Game::Update()
+extern void Game_Update_mA1557241B926376A448DF2A57135D7BD10A5A51F (void);
+// 0x00000006 System.Void Game::GetSaveScore()
+extern void Game_GetSaveScore_m9CADA777E074A20C7223BC461C5EF25AB70A6A41 (void);
+// 0x00000007 System.Void Game::PlayAudio(UnityEngine.AudioClip)
+extern void Game_PlayAudio_m0F3A72CFD81432FE1AD86E1CC7B01AE7BE0507B1 (void);
+// 0x00000008 System.Void Game::OnPlayAudio()
+extern void Game_OnPlayAudio_mED7ED288EAA0127A7A0CEC1D08A6C80563E7850F (void);
+// 0x00000009 System.Void Game::ActiveMessBox()
+extern void Game_ActiveMessBox_m876E047F04BC0BC61C4C9479C531C4E7BE46172B (void);
+// 0x0000000A System.Void Game::Restart(System.Boolean)
+extern void Game_Restart_m95C2D42DFD404ACFCEAFD96AE747A76FDC3B9367 (void);
+// 0x0000000B System.Void Game::OnNormal()
+extern void Game_OnNormal_m2289CAE6C1DEDB6098128734BF0FC53EEBD6D10C (void);
+// 0x0000000C System.Void Game::OnNumbers()
+extern void Game_OnNumbers_m2A62A8FCEC605C8221AF60FF6AE4AC2104763620 (void);
+// 0x0000000D System.Void Game::OnShort()
+extern void Game_OnShort_m3437CC9378F00B973B19FA2F4230FB68B84666A2 (void);
+// 0x0000000E System.Void Game::OnPrefix()
+extern void Game_OnPrefix_m379A3087E2587AC03F4C90B6A145A822685B63E3 (void);
+// 0x0000000F System.Void Game::BonusBtn(System.Int32)
+extern void Game_BonusBtn_m817B6D2A08E8ED5E9E98C83B61764C46680C1A1B (void);
+// 0x00000010 System.Void Game::GetNewClick()
+extern void Game_GetNewClick_m25440EE52B2FABA9DB6F5388FD24DD1614286CEA (void);
+// 0x00000011 System.Void Game::OnClickBtn()
+extern void Game_OnClickBtn_m89916DD41E9A471E56C94C4AFEE12F5797C8BD8F (void);
+// 0x00000012 System.Void Game::Hire(System.Int32)
+extern void Game_Hire_m28C02EC27CA994E696084D0A8A53F41143061B4E (void);
+// 0x00000013 System.Collections.IEnumerator Game::BonusPerSec()
+extern void Game_BonusPerSec_m645C7BD1908A45E4A213D6F7CD2DF844D41264BC (void);
+// 0x00000014 System.Void Game::SaveScore(System.Int32)
+extern void Game_SaveScore_mF6777237BCF5EFEBB2807650122A413530CA46AC (void);
+// 0x00000015 System.Void Game::NormalMode()
+extern void Game_NormalMode_m02C78FBC74003190BF3F2A9E14DA32310678681F (void);
+// 0x00000016 System.Void Game::StepMode()
+extern void Game_StepMode_mE86A10082B61F5A23B8C7F45A4CF7AAA04115680 (void);
+// 0x00000017 System.Void Game::SokrMode()
+extern void Game_SokrMode_mC43C861FAA978081B06C5692EA1962410D14A386 (void);
+// 0x00000018 System.Void Game::PrefixMode()
+extern void Game_PrefixMode_m05AA1604778DD81E0D069B32F9802CA2C0DC1879 (void);
+// 0x00000019 System.Void Game::OnSecretPan()
+extern void Game_OnSecretPan_m67879E6B7F29843068EF69552F7E260B6E7A3DC0 (void);
+// 0x0000001A System.Void Game::ExitSecretPan()
+extern void Game_ExitSecretPan_m0F7BF07413C07F8D4EEF1599591C6C6175030696 (void);
+// 0x0000001B System.Void Game::OnAdminPan()
+extern void Game_OnAdminPan_m35E044E24FFD63AF3437762B183951191E099340 (void);
+// 0x0000001C System.Void Game::ExitAdminPan()
+extern void Game_ExitAdminPan_m407019BD663BFE28778DD9F208F77692C3260138 (void);
+// 0x0000001D System.Void Game::EnterBonus()
+extern void Game_EnterBonus_m4607510280C379E64580321979F9470D4E6CFE29 (void);
+// 0x0000001E System.Void Game::OnInfoPan()
+extern void Game_OnInfoPan_m7F6C54E62A9F78E6E7FD1C12A3D772480157C056 (void);
+// 0x0000001F System.Void Game::OnSettingsPan()
+extern void Game_OnSettingsPan_m7E39FD9E55FF5B04FA41EF226C1675771B404D1C (void);
+// 0x00000020 System.Void Game::OnBonPan()
+extern void Game_OnBonPan_m7B986B78548E854556C9C18BF92AB1ACD1A40D67 (void);
+// 0x00000021 System.Void Game::OnAutPan()
+extern void Game_OnAutPan_m5593BA912AE3801575DD8239F3C9987C09DF8321 (void);
+// 0x00000022 System.Void Game::OnSavPan()
+extern void Game_OnSavPan_m8151B7DC8CC5E803617D5F986A7DEF518477F45B (void);
+// 0x00000023 System.Void Game::.ctor()
+extern void Game__ctor_m22BD482E0EC7CE99133FCF5EEF21DBC98A0BE5C3 (void);
+// 0x00000024 System.Void Game/<BonusPerSec>d__133::.ctor(System.Int32)
+extern void U3CBonusPerSecU3Ed__133__ctor_m89AF865E83FB6C34FD89E343C9C191E492C11AFF (void);
+// 0x00000025 System.Void Game/<BonusPerSec>d__133::System.IDisposable.Dispose()
+extern void U3CBonusPerSecU3Ed__133_System_IDisposable_Dispose_m321E502DF57D95B4C35BA6F96F7CC325370A81E3 (void);
+// 0x00000026 System.Boolean Game/<BonusPerSec>d__133::MoveNext()
+extern void U3CBonusPerSecU3Ed__133_MoveNext_mF15A735FE93BF9848BBF89CED7C443D12344F5CF (void);
+// 0x00000027 System.Object Game/<BonusPerSec>d__133::System.Collections.Generic.IEnumerator<System.Object>.get_Current()
+extern void U3CBonusPerSecU3Ed__133_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m83A1524B0B067D50B89F667B66C302E2CB57ACEE (void);
+// 0x00000028 System.Void Game/<BonusPerSec>d__133::System.Collections.IEnumerator.Reset()
+extern void U3CBonusPerSecU3Ed__133_System_Collections_IEnumerator_Reset_mE526F7338F7A7C8D09B42F199167C0DCA2EBC8AE (void);
+// 0x00000029 System.Object Game/<BonusPerSec>d__133::System.Collections.IEnumerator.get_Current()
+extern void U3CBonusPerSecU3Ed__133_System_Collections_IEnumerator_get_Current_mC58D80C383604DBC233A7FA54F73CD89803072CC (void);
+// 0x0000002A System.Void Notifications::Awake()
+extern void Notifications_Awake_mC3817C2FE865BE8229B73FDF5E784010332FB599 (void);
+// 0x0000002B System.Void Notifications::SendNotification()
+extern void Notifications_SendNotification_mA7081B7B5E33DB359DE6CA6AA005F09914BCF8E4 (void);
+// 0x0000002C System.Void Notifications::.ctor()
+extern void Notifications__ctor_m7565860263B8003314D1D28BF9A95541D40626D6 (void);
+static Il2CppMethodPointer s_methodPointers[44] = 
+{
+	ClickOblect_Update_m665D8A10468295B24769E784680048F0937F1D0A,
+	ClickOblect_StartMotion_m55CAD48EE4190B929BE89E8794C8CB7F3EAF829A,
+	ClickOblect__ctor_m04E3699D1B525E3BC4A8AFA1F71271AD5252794E,
+	Game_Start_m81FFBF966FD86236D5383C0295E70170EAE3F1DB,
+	Game_Update_mA1557241B926376A448DF2A57135D7BD10A5A51F,
+	Game_GetSaveScore_m9CADA777E074A20C7223BC461C5EF25AB70A6A41,
+	Game_PlayAudio_m0F3A72CFD81432FE1AD86E1CC7B01AE7BE0507B1,
+	Game_OnPlayAudio_mED7ED288EAA0127A7A0CEC1D08A6C80563E7850F,
+	Game_ActiveMessBox_m876E047F04BC0BC61C4C9479C531C4E7BE46172B,
+	Game_Restart_m95C2D42DFD404ACFCEAFD96AE747A76FDC3B9367,
+	Game_OnNormal_m2289CAE6C1DEDB6098128734BF0FC53EEBD6D10C,
+	Game_OnNumbers_m2A62A8FCEC605C8221AF60FF6AE4AC2104763620,
+	Game_OnShort_m3437CC9378F00B973B19FA2F4230FB68B84666A2,
+	Game_OnPrefix_m379A3087E2587AC03F4C90B6A145A822685B63E3,
+	Game_BonusBtn_m817B6D2A08E8ED5E9E98C83B61764C46680C1A1B,
+	Game_GetNewClick_m25440EE52B2FABA9DB6F5388FD24DD1614286CEA,
+	Game_OnClickBtn_m89916DD41E9A471E56C94C4AFEE12F5797C8BD8F,
+	Game_Hire_m28C02EC27CA994E696084D0A8A53F41143061B4E,
+	Game_BonusPerSec_m645C7BD1908A45E4A213D6F7CD2DF844D41264BC,
+	Game_SaveScore_mF6777237BCF5EFEBB2807650122A413530CA46AC,
+	Game_NormalMode_m02C78FBC74003190BF3F2A9E14DA32310678681F,
+	Game_StepMode_mE86A10082B61F5A23B8C7F45A4CF7AAA04115680,
+	Game_SokrMode_mC43C861FAA978081B06C5692EA1962410D14A386,
+	Game_PrefixMode_m05AA1604778DD81E0D069B32F9802CA2C0DC1879,
+	Game_OnSecretPan_m67879E6B7F29843068EF69552F7E260B6E7A3DC0,
+	Game_ExitSecretPan_m0F7BF07413C07F8D4EEF1599591C6C6175030696,
+	Game_OnAdminPan_m35E044E24FFD63AF3437762B183951191E099340,
+	Game_ExitAdminPan_m407019BD663BFE28778DD9F208F77692C3260138,
+	Game_EnterBonus_m4607510280C379E64580321979F9470D4E6CFE29,
+	Game_OnInfoPan_m7F6C54E62A9F78E6E7FD1C12A3D772480157C056,
+	Game_OnSettingsPan_m7E39FD9E55FF5B04FA41EF226C1675771B404D1C,
+	Game_OnBonPan_m7B986B78548E854556C9C18BF92AB1ACD1A40D67,
+	Game_OnAutPan_m5593BA912AE3801575DD8239F3C9987C09DF8321,
+	Game_OnSavPan_m8151B7DC8CC5E803617D5F986A7DEF518477F45B,
+	Game__ctor_m22BD482E0EC7CE99133FCF5EEF21DBC98A0BE5C3,
+	U3CBonusPerSecU3Ed__133__ctor_m89AF865E83FB6C34FD89E343C9C191E492C11AFF,
+	U3CBonusPerSecU3Ed__133_System_IDisposable_Dispose_m321E502DF57D95B4C35BA6F96F7CC325370A81E3,
+	U3CBonusPerSecU3Ed__133_MoveNext_mF15A735FE93BF9848BBF89CED7C443D12344F5CF,
+	U3CBonusPerSecU3Ed__133_System_Collections_Generic_IEnumeratorU3CSystem_ObjectU3E_get_Current_m83A1524B0B067D50B89F667B66C302E2CB57ACEE,
+	U3CBonusPerSecU3Ed__133_System_Collections_IEnumerator_Reset_mE526F7338F7A7C8D09B42F199167C0DCA2EBC8AE,
+	U3CBonusPerSecU3Ed__133_System_Collections_IEnumerator_get_Current_mC58D80C383604DBC233A7FA54F73CD89803072CC,
+	Notifications_Awake_mC3817C2FE865BE8229B73FDF5E784010332FB599,
+	Notifications_SendNotification_mA7081B7B5E33DB359DE6CA6AA005F09914BCF8E4,
+	Notifications__ctor_m7565860263B8003314D1D28BF9A95541D40626D6,
+};
+static const int32_t s_InvokerIndices[44] = 
+{
+	3212,
+	2687,
+	3212,
+	3212,
+	3212,
+	3212,
+	2626,
+	3212,
+	3212,
+	2573,
+	3212,
+	3212,
+	3212,
+	3212,
+	2610,
+	3212,
+	3212,
+	2610,
+	3131,
+	2610,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	3212,
+	2610,
+	3212,
+	3077,
+	3131,
+	3212,
+	3131,
+	3212,
+	3212,
+	3212,
+};
+IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
+const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
+{
+	"Assembly-CSharp.dll",
+	44,
+	s_methodPointers,
+	0,
+	NULL,
+	s_InvokerIndices,
+	0,
+	NULL,
+	0,
+	NULL,
+	0,
+	NULL,
+	NULL,
+	NULL, // module initializer,
+	NULL,
+	NULL,
+	NULL,
+};
