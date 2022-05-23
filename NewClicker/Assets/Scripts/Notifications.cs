@@ -9,9 +9,9 @@ public class Notifications : MonoBehaviour
     {
         AndroidNotificationChannel channel = new AndroidNotificationChannel()
         {
-            Name = "News | Новости",
-            Description = "Уведомления о новостях игры", 
-            Id = "news",
+            Name = "Events | События",
+            Description = "Уведомления о событиях игры", 
+            Id = "events",
             Importance = Importance.High //Low, Default, High
         };
 
@@ -27,6 +27,6 @@ public class Notifications : MonoBehaviour
             FireTime = System.DateTime.Now.AddSeconds(5)
         };
 
-        AndroidNotificationCenter.SendNotification(notification, "news");
+        AndroidNotificationCenter.SendNotification(notification, "events");
     }
 }

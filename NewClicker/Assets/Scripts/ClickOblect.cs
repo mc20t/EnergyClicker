@@ -16,6 +16,7 @@ public class ClickOblect : MonoBehaviour
 
     public void StartMotion(ulong ScoreClick)
     {
+        //transform.LocalPosition = Vector2.zero;
         GetComponent<Text>().text = $"+{ScoreClick} Дж";
         randomVector = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
         move = true;
